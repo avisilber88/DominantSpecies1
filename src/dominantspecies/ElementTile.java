@@ -14,13 +14,20 @@ import java.awt.geom.Ellipse2D;
  * @author DJ 4 Fathers
  */
 public class ElementTile extends Ellipse2D.Float{
+    private ElementType food;
     public enum ElementType{
         Grass,
         Grub,
         Meat,
         Seed,
         Sun,
-        Water
+        Water,
+        Invalid
     }
-    
+      public ElementTile(ElementTile.ElementType food, int x, int y, int w, int h) {
+        super(x, y, w, h);
+        this.food = food; 
+        
+    }
+//      public 
 }
