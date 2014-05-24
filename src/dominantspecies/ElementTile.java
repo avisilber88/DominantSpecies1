@@ -29,5 +29,8 @@ public class ElementTile extends Ellipse2D.Float{
         this.food = food; 
         
     }
+      public ElementType getElementType(){
+          return this.food;
+      }
 //      public 
 }

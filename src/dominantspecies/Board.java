@@ -40,7 +40,7 @@ public class Board extends JPanel {
     final static int BSIZE = 7; //board size.
     final static int HEXSIZE = 60;	//hex size in pixels
     final static int BORDERS = 15;
-    final static int SCRSIZE = HEXSIZE * (BSIZE + 1) + BORDERS * 3; //screen size (vertical dimension).
+    final static int SCRSIZE = 525;//HEXSIZE * (BSIZE + 1) + BORDERS * 3; //screen size (vertical dimension).
     Tile[][] board = new Tile[BSIZE][BSIZE - 1];
     ElementTile[][] boardElements = new ElementTile[2 * (BSIZE + 1)][BSIZE];
 
@@ -53,7 +53,7 @@ public class Board extends JPanel {
 
     public static void setElementSize(int height) {
         hE = height;
-        rE = hE/2;//h / 2;
+        rE = hE / 2;//h / 2;
         sE = (int) (h / 1.73025);
         tE = sE;//(int) (r / 1.73025);
     }
@@ -97,32 +97,32 @@ public class Board extends JPanel {
                 board[i][j] = new Tile(Tile.TerrainType.Invalid, cx, cy);
 
                 if (boardElements[2 * i + 1][j] == null) {
-                    boardElements[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0]-rE, cy[0], hE, hE);
+                    boardElements[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0] - rE, cy[0], hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 2][j] == null) {
-                    boardElements[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[1]-rE, cy[1]-rE, hE, hE);
+                    boardElements[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElements[2 * i + 3][j+i%2] == null) {
-                    boardElements[2 * i + 3][j+i%2] = new ElementTile(ElementTile.ElementType.Invalid, cx[2]-rE, cy[2]-rE, hE, hE);
+                if (boardElements[2 * i + 3][j + i % 2] == null) {
+                    boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElements[2 * i + 2][j+1] == null) {
-                    boardElements[2 * i + 2][j+1] = new ElementTile(ElementTile.ElementType.Invalid, cx[3]-rE, cy[3]-rE, hE, hE);
+                if (boardElements[2 * i + 2][j + 1] == null) {
+                    boardElements[2 * i + 2][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElements[2 * i + 1][j+1] == null) {
-                    boardElements[2 * i + 1][j+1] = new ElementTile(ElementTile.ElementType.Invalid, cx[4]-rE, cy[4]-rE, hE, hE);
+                if (boardElements[2 * i + 1][j + 1] == null) {
+                    boardElements[2 * i + 1][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElements[2 * i][j+i%2] == null) {
-                    boardElements[2 * i][j+i%2] = new ElementTile(ElementTile.ElementType.Invalid, cx[5]-rE, cy[5]-rE, hE, hE);
+                if (boardElements[2 * i][j + i % 2] == null) {
+                    boardElements[2 * i][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
@@ -132,6 +132,80 @@ public class Board extends JPanel {
 //                boardElements[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
 //                boardElements[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
 //                boardElements[2 * i][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
+            }
+        }
+
+    }
+
+    public void realignBoard(int height) {
+        
+        int hexSizeNew = (height - BORDERS * 3) / (BSIZE - 1);
+        setTileSize(hexSizeNew);
+        setElementSize(hexSizeNew/5);
+         ElementTile[][] boardElementsResizeCheck = new ElementTile[2 * (BSIZE + 1)][BSIZE];
+        for (int i = 0; i < BSIZE; i++) {
+            for (int j = 0; j < (BSIZE - 1); j++) {
+                int x0 = i * (s + t);
+                int y0 = j * h + (i % 2) * h / 2;
+                int x = x0 + BORDERS; // + (XYVertex ? t : 0); //Fix added for XYVertex = true. 
+                // NO! Done below in cx= section
+                int y = y0 + BORDERS;
+
+                if (s == 0 || h == 0) {
+                    System.out.println("ERROR: size of hex has not been set");
+                    //return new Polygon();
+                }
+
+                int[] cx, cy;
+
+//I think that this XYvertex stuff is taken care of in the int x line above. Why is it here twice?
+		/*TOM says fuck the xyvertex since its always false
+                 if (XYVertex) 
+                 cx = new int[] {x,x+s,x+s+t,x+s,x,x-t};  //this is for the top left vertex being at x,y. Which means that some of the hex is cutoff.
+                 else
+                 */
+                cx = new int[]{x + t, x + s + t, x + s + t + t, x + s + t, x + t, x};	//this is for the whole hexagon to be below and to the right of this point
+
+                cy = new int[]{y, y, y + r, y + r + r, y + r + r, y + r};
+
+                board[i][j] = new Tile(board[i][j].getTerrain(), cx, cy);
+
+                if (boardElementsResizeCheck[2 * i + 1][j] == null) {
+                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0] - rE, cy[0] - rE, hE, hE);                    
+                    boardElements[2 * i + 1][j] = new ElementTile(boardElements[2*i+1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
+                } else {
+                    System.out.println("see there was a copy");
+                }
+                if (boardElementsResizeCheck[2 * i + 2][j] == null) {
+                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[1] - rE, cy[1] - rE, hE, hE);                    
+                    boardElements[2 * i + 2][j] = new ElementTile(boardElements[2*i+2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
+                } else {
+                    System.out.println("see there was a copy");
+                }
+                if (boardElementsResizeCheck[2 * i + 3][j+i%2] == null) {
+                    boardElementsResizeCheck[2 * i + 3][j+i%2] = new ElementTile(ElementTile.ElementType.Invalid, cx[2] - rE, cy[2] - rE, hE, hE);                    
+                    boardElements[2 * i + 3][j+i%2] = new ElementTile(boardElements[2*i+3][j+i%2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
+                } else {
+                    System.out.println("see there was a copy");
+                }
+                if (boardElementsResizeCheck[2 * i + 2][j+1] == null) {
+                    boardElementsResizeCheck[2 * i + 2][j+1] = new ElementTile(ElementTile.ElementType.Invalid, cx[3] - rE, cy[3] - rE, hE, hE);                    
+                    boardElements[2 * i + 2][j+1] = new ElementTile(boardElements[2*i+2][j+1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
+                } else {
+                    System.out.println("see there was a copy");
+                }
+                if (boardElementsResizeCheck[2 * i + 1][j+1] == null) {
+                    boardElementsResizeCheck[2 * i + 1][j+1] = new ElementTile(ElementTile.ElementType.Invalid, cx[4] - rE, cy[4] - rE, hE, hE);                    
+                    boardElements[2 * i + 1][j+1] = new ElementTile(boardElements[2*i+1][j+1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
+                } else {
+                    System.out.println("see there was a copy");
+                }
+                if (boardElementsResizeCheck[2 * i][j+i%2] == null) {
+                    boardElementsResizeCheck[2 * i][j+i%2] = new ElementTile(ElementTile.ElementType.Invalid, cx[5] - rE, cy[5] - rE, hE, hE);                    
+                    boardElements[2 * i][j+i%2] = new ElementTile(boardElements[2*i][j+i%2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
+                } else {
+                    System.out.println("see there was a copy");
+                }
 
             }
         }
@@ -153,15 +227,15 @@ public class Board extends JPanel {
                     g2.fillPolygon(board[i][j]);
                     g2.setColor(COLOURGRID);
                     g2.drawPolygon(board[i][j]);
-                    
+
                     g2.setColor(COLOURONE);
-                    g2.draw(boardElements[2*i+1][j]);
-                    g2.draw(boardElements[2*i+2][j]);
-                    g2.draw(boardElements[2*i+3][j+i%2]);
-                    g2.draw(boardElements[2*i+2][j+1]);
-                    g2.draw(boardElements[2*i+1][j+1]);
-                    g2.draw(boardElements[2*i][j+i%2]);
-                    
+                    g2.draw(boardElements[2 * i + 1][j]);
+                    g2.draw(boardElements[2 * i + 2][j]);
+                    g2.draw(boardElements[2 * i + 3][j + i % 2]);
+                    g2.draw(boardElements[2 * i + 2][j + 1]);
+                    g2.draw(boardElements[2 * i + 1][j + 1]);
+                    g2.draw(boardElements[2 * i][j + i % 2]);
+
                 } else {
                     System.out.println("NO TENGO => [ " + i + " , " + j + " ]");
                 }

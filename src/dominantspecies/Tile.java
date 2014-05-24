@@ -37,7 +37,11 @@ public class Tile extends Polygon {
         //TODO have tile draw itself
     }
     public int[] Species = new int[6];
+ 
     
+    public TerrainType getTerrain(){
+        return this.terrain;
+    }
     public int[] ScoreValues(){
         switch(this.terrain) {
             case Sea:
