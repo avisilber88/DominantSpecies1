@@ -30,14 +30,19 @@ public class Board extends JPanel {
     private static int t=0;	// short side of 30o triangle outside of each hex
     private static int r=0;	// radius of inscribed circle (centre to middle of each side). r= h/2
     private static int h=0;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
-   // public static boolean XYVertex=false;
+ private static int sE=0;	// length of one side
+    private static int tE=0;	// short side of 30o triangle outside of each hex
+    private static int rE=0;	// radius of inscribed circle (centre to middle of each side). r= h/2
+    private static int hE=0;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
+
+    // public static boolean XYVertex=false;
   //  final static Tile EMPTY = new Tile(Tile.TerrainType.Invalid);
     final static int BSIZE = 7; //board size.
     final static int HEXSIZE = 60;	//hex size in pixels
     final static int BORDERS = 15;
     final static int SCRSIZE = HEXSIZE * (BSIZE + 1) + BORDERS * 3; //screen size (vertical dimension).
     Tile[][] board = new Tile[BSIZE][BSIZE - 1];
-    
+    ElementTile[][][] boardElements = new ElementTile[BSIZE][BSIZE - 1][2];
     public static void setTileSize(int height) {
 		h = height;			// h = basic dimension: height (distance between two adj centresr aka size)
 		r = h/2;			// r = radius of inscribed circle
@@ -45,8 +50,16 @@ public class Board extends JPanel {
 		t = (int) (r / 1.73205);	// t = (h/2) tan30 = (h/2) 1/sqrt(3) = h / (2 sqrt(3)) = r / sqrt(3)
     }
     
+    public static void setElementSize (int height){
+        hE = height;
+        rE = h/2;
+        sE = (int) (h / 1.73025);
+        tE = (int) (r / 1.73025);
+    }
+    
     public Board() {
         setTileSize(HEXSIZE);//this is simple way to change tile size
+        setElementSize(HEXSIZE/10);
         initBoard();
 
         //set up board here
