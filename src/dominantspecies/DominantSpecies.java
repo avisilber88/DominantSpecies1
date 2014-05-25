@@ -25,6 +25,7 @@ public class DominantSpecies {
 Board board;
 JPanel actionPlaceHolder, rightPlaceHolder, leftPlaceHolder;
 JFrame frame;
+String WinstonTested;
 /**
      * @param args the command line arguments
      */
