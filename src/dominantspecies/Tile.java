@@ -42,6 +42,10 @@ public class Tile extends Polygon {
     public TerrainType getTerrain(){
         return this.terrain;
     }
+    
+    public void setTerrain(TerrainType terrain){
+        this.terrain=terrain;
+    }
     public int[] ScoreValues(){
         switch(this.terrain) {
             case Sea:
@@ -80,6 +84,29 @@ public class Tile extends Polygon {
               return 1;
           }
           return 0;
+    }
+    
+    public String getImageName(){
+         switch(this.terrain) {
+            case Sea:
+                return "Sea.jpeg";
+            case Wetlands:
+              return "Wetlands.jpeg";
+            case Savannah:
+                return "Savannah.jpeg";
+            case Jungle:
+                return "Jungle.jpeg";
+            case Forest:
+              return "Forest.jpeg";
+            case Desert:
+                return "Desert.jpeg";
+            case Mountain:
+              return "Mountain.jpeg";
+                
+            case Tundra:
+              return "Tundra.jpeg";
+          }
+          return null;
     }
          
 

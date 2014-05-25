@@ -10,6 +10,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.TexturePaint;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -135,14 +138,37 @@ public class Board extends JPanel {
             }
         }
 
+        board[3][1].setTerrain(Tile.TerrainType.Wetlands);
+        board[4][2].setTerrain(Tile.TerrainType.Savannah);
+        board[4][3].setTerrain(Tile.TerrainType.Desert);
+        board[3][3].setTerrain(Tile.TerrainType.Mountain);
+        board[2][3].setTerrain(Tile.TerrainType.Forest);
+        board[2][2].setTerrain(Tile.TerrainType.Jungle);
+
+        board[3][2].setTerrain(Tile.TerrainType.Tundra);
+
+        boardElements[7][3].setElementType(ElementTile.ElementType.Meat);
+        boardElements[8][3].setElementType(ElementTile.ElementType.Sun);
+        boardElements[9][4].setElementType(ElementTile.ElementType.Meat);
+        boardElements[9][3].setElementType(ElementTile.ElementType.Grass);
+        boardElements[10][3].setElementType(ElementTile.ElementType.Sun);
+        boardElements[6][3].setElementType(ElementTile.ElementType.Seed);
+boardElements[5][3].setElementType(ElementTile.ElementType.Grub);
+boardElements[6][4].setElementType(ElementTile.ElementType.Seed);
+
+boardElements[6][2].setElementType(ElementTile.ElementType.Water);
+boardElements[7][2].setElementType(ElementTile.ElementType.Grub);
+
+        boardElements[8][2].setElementType(ElementTile.ElementType.Water);
+        boardElements[9][2].setElementType(ElementTile.ElementType.Grass);
     }
 
     public void realignBoard(int height) {
-        
+
         int hexSizeNew = (height - BORDERS * 3) / (BSIZE - 1);
         setTileSize(hexSizeNew);
-        setElementSize(hexSizeNew/5);
-         ElementTile[][] boardElementsResizeCheck = new ElementTile[2 * (BSIZE + 1)][BSIZE];
+        setElementSize(hexSizeNew / 5);
+        ElementTile[][] boardElementsResizeCheck = new ElementTile[2 * (BSIZE + 1)][BSIZE];
         for (int i = 0; i < BSIZE; i++) {
             for (int j = 0; j < (BSIZE - 1); j++) {
                 int x0 = i * (s + t);
@@ -171,38 +197,38 @@ public class Board extends JPanel {
                 board[i][j] = new Tile(board[i][j].getTerrain(), cx, cy);
 
                 if (boardElementsResizeCheck[2 * i + 1][j] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0] - rE, cy[0] - rE, hE, hE);                    
-                    boardElements[2 * i + 1][j] = new ElementTile(boardElements[2*i+1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0] - rE, cy[0] - rE, hE, hE);
+                    boardElements[2 * i + 1][j] = new ElementTile(boardElements[2 * i + 1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 2][j] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[1] - rE, cy[1] - rE, hE, hE);                    
-                    boardElements[2 * i + 2][j] = new ElementTile(boardElements[2*i+2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[1] - rE, cy[1] - rE, hE, hE);
+                    boardElements[2 * i + 2][j] = new ElementTile(boardElements[2 * i + 2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElementsResizeCheck[2 * i + 3][j+i%2] == null) {
-                    boardElementsResizeCheck[2 * i + 3][j+i%2] = new ElementTile(ElementTile.ElementType.Invalid, cx[2] - rE, cy[2] - rE, hE, hE);                    
-                    boardElements[2 * i + 3][j+i%2] = new ElementTile(boardElements[2*i+3][j+i%2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
+                if (boardElementsResizeCheck[2 * i + 3][j + i % 2] == null) {
+                    boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[2] - rE, cy[2] - rE, hE, hE);
+                    boardElements[2 * i + 3][j + i % 2] = new ElementTile(boardElements[2 * i + 3][j + i % 2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElementsResizeCheck[2 * i + 2][j+1] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j+1] = new ElementTile(ElementTile.ElementType.Invalid, cx[3] - rE, cy[3] - rE, hE, hE);                    
-                    boardElements[2 * i + 2][j+1] = new ElementTile(boardElements[2*i+2][j+1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
+                if (boardElementsResizeCheck[2 * i + 2][j + 1] == null) {
+                    boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[3] - rE, cy[3] - rE, hE, hE);
+                    boardElements[2 * i + 2][j + 1] = new ElementTile(boardElements[2 * i + 2][j + 1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElementsResizeCheck[2 * i + 1][j+1] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j+1] = new ElementTile(ElementTile.ElementType.Invalid, cx[4] - rE, cy[4] - rE, hE, hE);                    
-                    boardElements[2 * i + 1][j+1] = new ElementTile(boardElements[2*i+1][j+1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
+                if (boardElementsResizeCheck[2 * i + 1][j + 1] == null) {
+                    boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[4] - rE, cy[4] - rE, hE, hE);
+                    boardElements[2 * i + 1][j + 1] = new ElementTile(boardElements[2 * i + 1][j + 1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
-                if (boardElementsResizeCheck[2 * i][j+i%2] == null) {
-                    boardElementsResizeCheck[2 * i][j+i%2] = new ElementTile(ElementTile.ElementType.Invalid, cx[5] - rE, cy[5] - rE, hE, hE);                    
-                    boardElements[2 * i][j+i%2] = new ElementTile(boardElements[2*i][j+i%2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
+                if (boardElementsResizeCheck[2 * i][j + i % 2] == null) {
+                    boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[5] - rE, cy[5] - rE, hE, hE);
+                    boardElements[2 * i][j + i % 2] = new ElementTile(boardElements[2 * i][j + i % 2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
@@ -228,13 +254,88 @@ public class Board extends JPanel {
                     g2.setColor(COLOURGRID);
                     g2.drawPolygon(board[i][j]);
 
+//                    g2.setClip(board[i][j]);
+                    try {
+                        BufferedImage img = ImageIO.read(getClass().getResource(board[i][j].getImageName()));
+                        TexturePaint tex = new TexturePaint(img, board[i][j].getBounds2D());
+                        g2.setPaint(tex);
+                        g2.fill(board[i][j]);
+//                        g2.drawImage(img, 0, 0, this);
+
+                    } catch (Exception e) {
+
+                    }
+
                     g2.setColor(COLOURONE);
                     g2.draw(boardElements[2 * i + 1][j]);
+                    try {
+                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 1][j].getImageName()));
+                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 1][j].getBounds2D());
+                        g2.setPaint(tex);
+                        g2.fill(boardElements[2 * i + 1][j]);
+//                        g2.drawImage(img, 0, 0, this);
+
+                    } catch (Exception e) {
+
+                    }
                     g2.draw(boardElements[2 * i + 2][j]);
+                    try {
+                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 2][j].getImageName()));
+                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 2][j].getBounds2D());
+                        g2.setPaint(tex);
+                        g2.fill(boardElements[2 * i + 2][j]);
+//                        g2.drawImage(img, 0, 0, this);
+
+                    } catch (Exception e) {
+
+                    }
                     g2.draw(boardElements[2 * i + 3][j + i % 2]);
+                    try {
+                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 3][j + i % 2].getImageName()));
+                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 3][j + i % 2].getBounds2D());
+                        g2.setPaint(tex);
+                        g2.fill(boardElements[2 * i + 3][j + i % 2]);
+//                        g2.drawImage(img, 0, 0, this);
+
+                    } catch (Exception e) {
+
+                    }
+
                     g2.draw(boardElements[2 * i + 2][j + 1]);
+                    try {
+                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 2][j + 1].getImageName()));
+                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 2][j + 1].getBounds2D());
+                        g2.setPaint(tex);
+                        g2.fill(boardElements[2 * i + 2][j + 1]);
+//                        g2.drawImage(img, 0, 0, this);
+
+                    } catch (Exception e) {
+
+                    }
+
                     g2.draw(boardElements[2 * i + 1][j + 1]);
+                    try {
+                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 1][j + 1].getImageName()));
+                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 1][j + i % 2].getBounds2D());
+                        g2.setPaint(tex);
+                        g2.fill(boardElements[2 * i + 1][j + 1]);
+//                        g2.drawImage(img, 0, 0, this);
+
+                    } catch (Exception e) {
+
+                    }
+
                     g2.draw(boardElements[2 * i][j + i % 2]);
+                    try {
+                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i][j + i % 2].getImageName()));
+                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i][j + i % 2].getBounds2D());
+                        g2.setPaint(tex);
+                        g2.fill(boardElements[2 * i][j + i % 2]);
+//                        g2.drawImage(img, 0, 0, this);
+
+                    } catch (Exception e) {
+
+                    }
 
                 } else {
                     System.out.println("NO TENGO => [ " + i + " , " + j + " ]");

@@ -32,5 +32,25 @@ public class ElementTile extends Ellipse2D.Float{
       public ElementType getElementType(){
           return this.food;
       }
+      public void setElementType(ElementType food){
+          this.food=food;
+      }
+      public String getImageName(){
+          switch(this.food){
+              case Grass:
+                  return "Grass.jpeg";
+              case Grub:
+                  return "Grub.jpeg";
+              case Meat:
+                  return "Meat.jpeg";
+              case Seed:
+                  return "Seed.jpeg";
+              case Sun:
+                  return "Sun.jpeg";
+              case Water:
+                  return "Water.jpeg";     
+          }
+          return null;
+      }
 //      public 
 }
