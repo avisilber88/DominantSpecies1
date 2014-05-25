@@ -26,6 +26,7 @@ Board board;
 JPanel actionPlaceHolder, rightPlaceHolder, leftPlaceHolder;
 JFrame frame;
 String WinstonTested;
+String testing2;
 /**
      * @param args the command line arguments
      */
