@@ -28,6 +28,7 @@ JFrame frame;
 String WinstonTested;
 String testing2;
 String testing3;
+String testing4;
 /**
      * @param args the command line arguments
      */
