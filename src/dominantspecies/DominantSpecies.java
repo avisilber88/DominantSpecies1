@@ -104,21 +104,17 @@ String testing5;
 
     public void resizePanels() {
         frame.setSize(frame.getWidth(), (int) (frame.getWidth() * (22.0 / 36)));
-   setSizes(leftPlaceHolder, 4.0, 22.0);
-   setSizes(board, 22.0, 22.0);
-   setSizes(actionPlaceHolder, 8.0, 22.0);
-   setSizes(rightPlaceHolder, 4.0, 22.0);
-   
-   
+        setSizes(leftPlaceHolder, 4.0, 22.0);
+        setSizes(board, 22.0, 22.0);
+        setSizes(actionPlaceHolder, 8.0, 22.0);
+        setSizes(rightPlaceHolder, 4.0, 22.0);
         board.realignBoard(board.getHeight());
 
     }
     public void setSizes(JPanel panel, double width, double height){
-    panel.setMinimumSize(new Dimension((int)(frame.getWidth()*(width/40)), (int)(frame.getHeight()*(height/25))));
-    panel.setPreferredSize(new Dimension((int)(frame.getWidth()*(width/40)), (int)(frame.getHeight()*(height/25))));
-    panel.setMaximumSize(new Dimension((int)(frame.getWidth()*(width/40)), (int)(frame.getHeight()*(height/25))));
-    
-            
-            }
+        panel.setMinimumSize(new Dimension((int)(frame.getWidth()*(width/40)), (int)(frame.getHeight()*(height/25))));
+        panel.setPreferredSize(new Dimension((int)(frame.getWidth()*(width/40)), (int)(frame.getHeight()*(height/25))));
+        panel.setMaximumSize(new Dimension((int)(frame.getWidth()*(width/40)), (int)(frame.getHeight()*(height/25))));            
+    }
     
 }

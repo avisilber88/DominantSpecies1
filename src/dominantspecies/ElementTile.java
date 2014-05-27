@@ -14,43 +14,24 @@ import java.awt.geom.Ellipse2D;
  * @author DJ 4 Fathers
  */
 public class ElementTile extends Ellipse2D.Float{
-    private ElementType food;
-    public enum ElementType{
-        Grass,
-        Grub,
-        Meat,
-        Seed,
-        Sun,
-        Water,
-        Invalid
-    }
-      public ElementTile(ElementTile.ElementType food, int x, int y, int w, int h) {
+    private ElementType elementType;
+    
+      public ElementTile(ElementType elementType, int x, int y, int w, int h) {
         super(x, y, w, h);
-        this.food = food; 
+        this.elementType = elementType; 
         
     }
-      public ElementType getElementType(){
-          return this.food;
+      public ElementTile(ElementType elementType){
+          this.elementType = elementType;
       }
-      public void setElementType(ElementType food){
-          this.food=food;
+      public ElementType getElementType(){
+          return this.elementType;
+      }
+      public void setElementType(ElementType elementType){
+          this.elementType=elementType;
       }
       public String getImageName(){
-          switch(this.food){
-              case Grass:
-                  return "Grass.jpeg";
-              case Grub:
-                  return "Grub.jpeg";
-              case Meat:
-                  return "Meat.jpeg";
-              case Seed:
-                  return "Seed.jpeg";
-              case Sun:
-                  return "Sun.jpeg";
-              case Water:
-                  return "Water.jpeg";     
-          }
-          return null;
+          return this.elementType+".jpeg";
       }
 //      public 
 }

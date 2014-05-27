@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package dominantspecies;
 
 import java.awt.Color;
@@ -100,41 +101,41 @@ public class Board extends JPanel {
                 board[i][j] = new Tile(Tile.TerrainType.Invalid, cx, cy);
 
                 if (boardElements[2 * i + 1][j] == null) {
-                    boardElements[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0] - rE, cy[0], hE, hE);
+                    boardElements[2 * i + 1][j] = new ElementTile(ElementType.None, cx[0] - rE, cy[0], hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 2][j] == null) {
-                    boardElements[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[1] - rE, cy[1] - rE, hE, hE);
+                    boardElements[2 * i + 2][j] = new ElementTile(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 3][j + i % 2] == null) {
-                    boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[2] - rE, cy[2] - rE, hE, hE);
+                    boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 2][j + 1] == null) {
-                    boardElements[2 * i + 2][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[3] - rE, cy[3] - rE, hE, hE);
+                    boardElements[2 * i + 2][j + 1] = new ElementTile(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 1][j + 1] == null) {
-                    boardElements[2 * i + 1][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[4] - rE, cy[4] - rE, hE, hE);
+                    boardElements[2 * i + 1][j + 1] = new ElementTile(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i][j + i % 2] == null) {
-                    boardElements[2 * i][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[5] - rE, cy[5] - rE, hE, hE);
+                    boardElements[2 * i][j + i % 2] = new ElementTile(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
 
-//                boardElements[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 2][j] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 2][j] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 1][j] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i][j + i % 2] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
             }
         }
 
@@ -147,20 +148,20 @@ public class Board extends JPanel {
 
         board[3][2].setTerrain(Tile.TerrainType.Tundra);
 
-        boardElements[7][3].setElementType(ElementTile.ElementType.Meat);
-        boardElements[8][3].setElementType(ElementTile.ElementType.Sun);
-        boardElements[9][4].setElementType(ElementTile.ElementType.Meat);
-        boardElements[9][3].setElementType(ElementTile.ElementType.Grass);
-        boardElements[10][3].setElementType(ElementTile.ElementType.Sun);
-        boardElements[6][3].setElementType(ElementTile.ElementType.Seed);
-boardElements[5][3].setElementType(ElementTile.ElementType.Grub);
-boardElements[6][4].setElementType(ElementTile.ElementType.Seed);
+        boardElements[7][3].setElementType(ElementType.Meat);
+        boardElements[8][3].setElementType(ElementType.Sun);
+        boardElements[9][4].setElementType(ElementType.Meat);
+        boardElements[9][3].setElementType(ElementType.Grass);
+        boardElements[10][3].setElementType(ElementType.Sun);
+        boardElements[6][3].setElementType(ElementType.Seed);
+boardElements[5][3].setElementType(ElementType.Grub);
+boardElements[6][4].setElementType(ElementType.Seed);
 
-boardElements[6][2].setElementType(ElementTile.ElementType.Water);
-boardElements[7][2].setElementType(ElementTile.ElementType.Grub);
+boardElements[6][2].setElementType(ElementType.Water);
+boardElements[7][2].setElementType(ElementType.Grub);
 
-        boardElements[8][2].setElementType(ElementTile.ElementType.Water);
-        boardElements[9][2].setElementType(ElementTile.ElementType.Grass);
+        boardElements[8][2].setElementType(ElementType.Water);
+        boardElements[9][2].setElementType(ElementType.Grass);
     }
 
     public void realignBoard(int height) {
@@ -197,37 +198,37 @@ boardElements[7][2].setElementType(ElementTile.ElementType.Grub);
                 board[i][j] = new Tile(board[i][j].getTerrain(), cx, cy);
 
                 if (boardElementsResizeCheck[2 * i + 1][j] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[0] - rE, cy[0] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTile(ElementType.None, cx[0] - rE, cy[0] - rE, hE, hE);
                     boardElements[2 * i + 1][j] = new ElementTile(boardElements[2 * i + 1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 2][j] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTile(ElementTile.ElementType.Invalid, cx[1] - rE, cy[1] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTile(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
                     boardElements[2 * i + 2][j] = new ElementTile(boardElements[2 * i + 2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 3][j + i % 2] == null) {
-                    boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[2] - rE, cy[2] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTile(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
                     boardElements[2 * i + 3][j + i % 2] = new ElementTile(boardElements[2 * i + 3][j + i % 2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 2][j + 1] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[3] - rE, cy[3] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTile(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
                     boardElements[2 * i + 2][j + 1] = new ElementTile(boardElements[2 * i + 2][j + 1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 1][j + 1] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTile(ElementTile.ElementType.Invalid, cx[4] - rE, cy[4] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTile(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
                     boardElements[2 * i + 1][j + 1] = new ElementTile(boardElements[2 * i + 1][j + 1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i][j + i % 2] == null) {
-                    boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTile(ElementTile.ElementType.Invalid, cx[5] - rE, cy[5] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTile(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
                     boardElements[2 * i][j + i % 2] = new ElementTile(boardElements[2 * i][j + i % 2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
@@ -247,7 +248,7 @@ boardElements[7][2].setElementType(ElementTile.ElementType.Grub);
         for (int i = 0; i < BSIZE; i++) {
             for (int j = 0; j < BSIZE - 1; j++) {
                 if (checkHexExist(i, j)) {
-                    System.out.println("TENGO! => [ " + i + " , " + j + " ]");
+                    //System.out.println("TENGO! => [ " + i + " , " + j + " ]");
 
                     g2.setColor(COLOURCELL);
                     g2.fillPolygon(board[i][j]);
@@ -338,7 +339,7 @@ boardElements[7][2].setElementType(ElementTile.ElementType.Grub);
                     }
 
                 } else {
-                    System.out.println("NO TENGO => [ " + i + " , " + j + " ]");
+                    //System.out.println("NO TENGO => [ " + i + " , " + j + " ]");
                 }
             }
         }
