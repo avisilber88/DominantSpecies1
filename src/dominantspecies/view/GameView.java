@@ -8,6 +8,7 @@ package dominantspecies.view;
 
 import dominantspecies.model.ElementTile;
 import dominantspecies.model.ElementType;
+import dominantspecies.model.Game;
 import dominantspecies.model.Tile;
 import java.awt.Color;
 import java.awt.Font;
@@ -65,7 +66,7 @@ public class GameView extends JPanel {
         tE = sE;//(int) (r / 1.73025);
     }
 
-    public GameView() {
+    public GameView(Game model) {
         setTileSize(HEXSIZE);//this is simple way to change tile size
         setElementSize(HEXSIZE / 5);
         //set up board here

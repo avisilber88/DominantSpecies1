@@ -20,14 +20,18 @@ public class MainController {
     
     public MainController(Game model){//, GameView view){
         gameModel = model;
+        //gameView = view;
     }
     
     public class ModelListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-        //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            //this will handle the shit from the view
+            //validate it in the model
+            //then set in the model ie model.setsomeshit(someshit)
+            //then gameView.update();
         }       
         
     }

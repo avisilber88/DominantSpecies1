@@ -7,6 +7,7 @@ package dominantspecies;
 
 //import static dominantspecies.hexgame.SCRSIZE;
 import dominantspecies.model.Board;
+import dominantspecies.model.Game;
 import dominantspecies.view.GameView;
 import java.awt.Color;
 import static java.awt.Component.LEFT_ALIGNMENT;
@@ -39,7 +40,11 @@ String testing5;
 
     public static void main(String[] args) {
         // TODO code application logic here
-        new DominantSpecies();
+        new DominantSpecies();//comment this out
+        //uncomment below
+       // Game model = new Game();
+       // GameView view = new GameView(model);
+       // MainController controller = new MainController(model);//, view);
     }
 
     public DominantSpecies() {
@@ -47,7 +52,7 @@ String testing5;
     }
 
     private void createAndShowGUI() {
-        board = new GameView();
+        board = new GameView(null);///this will be set up in the constructer so comment it out laters
         actionPlaceHolder = new JPanel();
         leftPlaceHolder = new JPanel();
         rightPlaceHolder = new JPanel();
