@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
-package dominantspecies;
+package dominantspecies.view;
 
+import dominantspecies.model.ElementTile;
+import dominantspecies.model.ElementType;
+import dominantspecies.model.Tile;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -20,7 +23,7 @@ import javax.swing.JPanel;
  *
  * @author DJ 4 Fathers
  */
-public class Board extends JPanel {
+public class GameView extends JPanel {
 
     final static Color COLOURBACK = Color.WHITE;
     final static Color COLOURCELL = Color.ORANGE;
@@ -62,17 +65,18 @@ public class Board extends JPanel {
         tE = sE;//(int) (r / 1.73025);
     }
 
-    public Board() {
+    public GameView() {
         setTileSize(HEXSIZE);//this is simple way to change tile size
         setElementSize(HEXSIZE / 5);
+        //set up board here
         initBoard();
 
-        //set up board here
+        
     }
 
     //sets up the grids and sets the tiles to invalid
     //setupBoard() will set the initial game tiles and element things
-    public void initBoard() {
+    public final void initBoard() {
         for (int i = 0; i < BSIZE; i++) {
             for (int j = 0; j < (BSIZE - 1); j++) {
                 int x0 = i * (s + t);

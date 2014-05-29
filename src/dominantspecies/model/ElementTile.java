@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package dominantspecies;
+package dominantspecies.model;
 
 import java.awt.geom.Ellipse2D;
 
@@ -31,7 +31,8 @@ public class ElementTile extends Ellipse2D.Float{
           this.elementType=elementType;
       }
       public String getImageName(){
-          return this.elementType+".jpeg";
+          //highley reccomend moving this to the view classes
+          return "images/"+this.elementType+".jpeg";
       }
 //      public 
 }

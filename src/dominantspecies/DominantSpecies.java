@@ -6,6 +6,8 @@
 package dominantspecies;
 
 //import static dominantspecies.hexgame.SCRSIZE;
+import dominantspecies.model.Board;
+import dominantspecies.view.GameView;
 import java.awt.Color;
 import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.Container;
@@ -22,7 +24,7 @@ import javax.swing.JPanel;
  */
 public class DominantSpecies {
 //int SCRSIZE;
-Board board;
+GameView board;
 JPanel actionPlaceHolder, rightPlaceHolder, leftPlaceHolder;
 JFrame frame;
 String WinstonTested;
@@ -45,7 +47,7 @@ String testing5;
     }
 
     private void createAndShowGUI() {
-        board = new Board();
+        board = new GameView();
         actionPlaceHolder = new JPanel();
         leftPlaceHolder = new JPanel();
         rightPlaceHolder = new JPanel();
