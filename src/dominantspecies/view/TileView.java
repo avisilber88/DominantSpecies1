@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dominantspecies.model;
+package dominantspecies.view;
 
+import dominantspecies.model.*;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
@@ -12,7 +13,7 @@ import java.awt.Polygon;
  *
  * @author DJ 4 Fathers, Toms Over Baghdad
  */
-public class Tile {
+public class TileView extends Polygon {
     
     public static enum TerrainType {
 
@@ -29,10 +30,13 @@ public class Tile {
     
     private TerrainType terrain;
     
-    public Tile(TerrainType terrain){
+    public TileView(TerrainType terrain, int[] cx, int[] cy) {
+        super(cx,cy,6);
         this.terrain = terrain; 
     }
-   
+    public void drawTile(Graphics2D g2){
+        //TODO have tile draw itself
+    }
     public int[] Species = new int[6];
  
     
@@ -84,7 +88,7 @@ public class Tile {
     }
     
     public String getImageName(){    
-        //might reccomend moving this to the view classes
+        //highley reccomend moving this to the view classes
         return "images/"+this.getTerrain()+".jpeg";
     }
          

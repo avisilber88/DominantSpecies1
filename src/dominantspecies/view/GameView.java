@@ -6,7 +6,6 @@
 
 package dominantspecies.view;
 
-import dominantspecies.model.ElementTile;
 import dominantspecies.model.ElementType;
 import dominantspecies.model.Game;
 import dominantspecies.model.Tile;
@@ -49,8 +48,8 @@ public class GameView extends JPanel {
     final static int HEXSIZE = 60;	//hex size in pixels
     final static int BORDERS = 15;
     final static int SCRSIZE = 525;//HEXSIZE * (BSIZE + 1) + BORDERS * 3; //screen size (vertical dimension).
-    Tile[][] board = new Tile[BSIZE][BSIZE - 1];
-    ElementTile[][] boardElements = new ElementTile[2 * (BSIZE + 1)][BSIZE];
+    TileView[][] board = new TileView[BSIZE][BSIZE - 1];
+    ElementTileView[][] boardElements = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
 
     public static void setTileSize(int height) {
         h = height;			// h = basic dimension: height (distance between two adj centresr aka size)
@@ -103,55 +102,55 @@ public class GameView extends JPanel {
 
                 cy = new int[]{y, y, y + r, y + r + r, y + r + r, y + r};
 
-                board[i][j] = new Tile(Tile.TerrainType.Invalid, cx, cy);
+                board[i][j] = new TileView(TileView.TerrainType.Invalid, cx, cy);
 
                 if (boardElements[2 * i + 1][j] == null) {
-                    boardElements[2 * i + 1][j] = new ElementTile(ElementType.None, cx[0] - rE, cy[0], hE, hE);
+                    boardElements[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0] - rE, cy[0], hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 2][j] == null) {
-                    boardElements[2 * i + 2][j] = new ElementTile(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
+                    boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 3][j + i % 2] == null) {
-                    boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
+                    boardElements[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 2][j + 1] == null) {
-                    boardElements[2 * i + 2][j + 1] = new ElementTile(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
+                    boardElements[2 * i + 2][j + 1] = new ElementTileView(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 1][j + 1] == null) {
-                    boardElements[2 * i + 1][j + 1] = new ElementTile(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
+                    boardElements[2 * i + 1][j + 1] = new ElementTileView(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i][j + i % 2] == null) {
-                    boardElements[2 * i][j + i % 2] = new ElementTile(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
+                    boardElements[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
 
-//                boardElements[2 * i + 2][j] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 2][j] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 1][j] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i][j + i % 2] = new ElementTile(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
+//                boardElements[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
             }
         }
 
-        board[3][1].setTerrain(Tile.TerrainType.Wetlands);
-        board[4][2].setTerrain(Tile.TerrainType.Savannah);
-        board[4][3].setTerrain(Tile.TerrainType.Desert);
-        board[3][3].setTerrain(Tile.TerrainType.Mountain);
-        board[2][3].setTerrain(Tile.TerrainType.Forest);
-        board[2][2].setTerrain(Tile.TerrainType.Jungle);
+        board[3][1].setTerrain(TileView.TerrainType.Wetlands);
+        board[4][2].setTerrain(TileView.TerrainType.Savannah);
+        board[4][3].setTerrain(TileView.TerrainType.Desert);
+        board[3][3].setTerrain(TileView.TerrainType.Mountain);
+        board[2][3].setTerrain(TileView.TerrainType.Forest);
+        board[2][2].setTerrain(TileView.TerrainType.Jungle);
 
-        board[3][2].setTerrain(Tile.TerrainType.Tundra);
+        board[3][2].setTerrain(TileView.TerrainType.Tundra);
 
         boardElements[7][3].setElementType(ElementType.Meat);
         boardElements[8][3].setElementType(ElementType.Sun);
@@ -174,7 +173,7 @@ boardElements[7][2].setElementType(ElementType.Grub);
         int hexSizeNew = (height - BORDERS * 3) / (BSIZE - 1);
         setTileSize(hexSizeNew);
         setElementSize(hexSizeNew / 5);
-        ElementTile[][] boardElementsResizeCheck = new ElementTile[2 * (BSIZE + 1)][BSIZE];
+        ElementTileView[][] boardElementsResizeCheck = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
         for (int i = 0; i < BSIZE; i++) {
             for (int j = 0; j < (BSIZE - 1); j++) {
                 int x0 = i * (s + t);
@@ -200,41 +199,41 @@ boardElements[7][2].setElementType(ElementType.Grub);
 
                 cy = new int[]{y, y, y + r, y + r + r, y + r + r, y + r};
 
-                board[i][j] = new Tile(board[i][j].getTerrain(), cx, cy);
+                board[i][j] = new TileView(board[i][j].getTerrain(), cx, cy);
 
                 if (boardElementsResizeCheck[2 * i + 1][j] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTile(ElementType.None, cx[0] - rE, cy[0] - rE, hE, hE);
-                    boardElements[2 * i + 1][j] = new ElementTile(boardElements[2 * i + 1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0] - rE, cy[0] - rE, hE, hE);
+                    boardElements[2 * i + 1][j] = new ElementTileView(boardElements[2 * i + 1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 2][j] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTile(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
-                    boardElements[2 * i + 2][j] = new ElementTile(boardElements[2 * i + 2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
+                    boardElements[2 * i + 2][j] = new ElementTileView(boardElements[2 * i + 2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 3][j + i % 2] == null) {
-                    boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTile(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
-                    boardElements[2 * i + 3][j + i % 2] = new ElementTile(boardElements[2 * i + 3][j + i % 2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
+                    boardElements[2 * i + 3][j + i % 2] = new ElementTileView(boardElements[2 * i + 3][j + i % 2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 2][j + 1] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTile(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
-                    boardElements[2 * i + 2][j + 1] = new ElementTile(boardElements[2 * i + 2][j + 1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTileView(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
+                    boardElements[2 * i + 2][j + 1] = new ElementTileView(boardElements[2 * i + 2][j + 1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 1][j + 1] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTile(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
-                    boardElements[2 * i + 1][j + 1] = new ElementTile(boardElements[2 * i + 1][j + 1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTileView(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
+                    boardElements[2 * i + 1][j + 1] = new ElementTileView(boardElements[2 * i + 1][j + 1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i][j + i % 2] == null) {
-                    boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTile(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
-                    boardElements[2 * i][j + i % 2] = new ElementTile(boardElements[2 * i][j + i % 2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
+                    boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
+                    boardElements[2 * i][j + i % 2] = new ElementTileView(boardElements[2 * i][j + i % 2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
                     System.out.println("see there was a copy");
                 }
