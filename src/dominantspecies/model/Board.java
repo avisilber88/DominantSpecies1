@@ -34,7 +34,8 @@ public class Board extends JPanel {
     public Board() {
         board = new Tile[BSIZE][BSIZE - 1];
         boardElements = new ElementTile[2 * (BSIZE + 1)][BSIZE];
-        initBoard();        
+        initBoard();   
+        defaultSettings();
     }
 
     //sets up the grids and sets the tiles to invalid
@@ -75,8 +76,10 @@ public class Board extends JPanel {
                     System.out.println("see there was a copy");
                 }
             }
-        }
-
+        }        
+    }
+    
+    public final void defaultSettings(){
         board[3][1].setTerrain(Tile.TerrainType.Wetlands);
         board[4][2].setTerrain(Tile.TerrainType.Savannah);
         board[4][3].setTerrain(Tile.TerrainType.Desert);
@@ -92,18 +95,17 @@ public class Board extends JPanel {
         boardElements[9][3].setElementType(ElementType.Grass);
         boardElements[10][3].setElementType(ElementType.Sun);
         boardElements[6][3].setElementType(ElementType.Seed);
-boardElements[5][3].setElementType(ElementType.Grub);
-boardElements[6][4].setElementType(ElementType.Seed);
+        boardElements[5][3].setElementType(ElementType.Grub);
+        boardElements[6][4].setElementType(ElementType.Seed);
 
-boardElements[6][2].setElementType(ElementType.Water);
-boardElements[7][2].setElementType(ElementType.Grub);
+        boardElements[6][2].setElementType(ElementType.Water);
+        boardElements[7][2].setElementType(ElementType.Grub);
 
         boardElements[8][2].setElementType(ElementType.Water);
         boardElements[9][2].setElementType(ElementType.Grass);
     }
-
-
     
+    //dont think we need this method
     public boolean checkHexExist(int x, int y) {
         if ((x == 0) && (y == 0)) {
             return false;
