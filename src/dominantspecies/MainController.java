@@ -7,33 +7,29 @@
 package dominantspecies;
 
 import dominantspecies.model.Game;
+import dominantspecies.view.GameView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  *
  * @author Tom
  */
-public class MainController {
-    Game gameModel;
-    //GameView gameView;
+public class MainController{// implements MouseListener{
+    Game model;
+    GameView view;
     
-    public MainController(Game model){//, GameView view){
-        gameModel = model;
-        //gameView = view;
+    public MainController(Game model, GameView gameview){//, GameView view){
+        this.model = model;
+        this.view = view;
+      //  view.addMouseListener(this);
+        //settlers version seems to pass the client around and call methods from it
+        //however this kind of goes against the MVC concept of separation
     }
     
-    public class ModelListener implements ActionListener{
+    //make methods that call to the model
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            //this will handle the shit from the view
-            //validate it in the model
-            //then set in the model ie model.setsomeshit(someshit)
-            //then gameView.update();
-        }       
-        
-    }
     
 }

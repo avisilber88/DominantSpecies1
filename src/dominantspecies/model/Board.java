@@ -6,14 +6,6 @@
 
 package dominantspecies.model;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.TexturePaint;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -105,7 +97,7 @@ public class Board extends JPanel {
         boardElements[9][2].setElementType(ElementType.Grass);
     }
     
-    //dont think we need this method
+    //dont think we need this method here?
     public boolean checkHexExist(int x, int y) {
         if ((x == 0) && (y == 0)) {
             return false;

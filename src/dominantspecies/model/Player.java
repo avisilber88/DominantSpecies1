@@ -15,10 +15,12 @@ import java.util.HashMap;
 public class Player {
   
    public static final int MAX_ADAPTAIONS = 6;
-   private HashMap<ElementType, Integer> adaptations = new HashMap<ElementType, Integer>();
-   //avi, adaptations.values() gives you the values in their, use it to check if they are 
-   //more then the max adaptions
+   private HashMap<ElementType, Integer> adaptations;
+   //avi, adaptations.values() gives you the values in there, use it to check if they are 
+   //more then the max adaptions when adding new adaptations
    private Animal animal;
+   private ElementType baseElement;//the animal cant lose more then the baseElementNum from regression and stuff
+   private int baseElementNum = -1;//gets set up in adaptation setup
    private int actionPawns;
    private int genePool;
    private int score;
@@ -29,16 +31,39 @@ public class Player {
    }
    
    public Player(Animal animal, int numberOfPlayers){
-       this.animal = animal;
+       this.animal = animal;       
+       
      // int numberOfPlayers = -1;//TODO find this
       int modifier = (numberOfPlayers - 2);
       actionPawns = 7 - modifier;
       genePool = 55 - (modifier * 5);
       
-      //setup adaptaitions
+      //setup adaptaitions      
+       adaptations = new HashMap<ElementType, Integer>();
+       setupAdaptations();
       
    }
    
+   private void setupAdaptations(){
+       this.baseElementNum = 2;       
+       switch(animal){
+           case Insect:
+               baseElement = ElementType.Grass;break;
+           case Arachnid:
+               baseElement = ElementType.Grub;break;
+           case Bird:
+               baseElement =ElementType.Seed;break;
+           case Reptile:
+               baseElement =ElementType.Sun;break;
+           case Mammal:
+               baseElement =ElementType.Meat;break;
+           case Amphibian:
+               baseElement = ElementType.Water;
+               baseElementNum = 3;
+               break;
+       }       
+       adaptations.put(baseElement, baseElementNum);
+   }
    
    
    

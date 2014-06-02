@@ -43,7 +43,7 @@ String testing5;
         new DominantSpecies();//comment this out
         //uncomment below
        // Game model = new Game();
-       // GameView view = new GameView(model);
+       // GameView view = new GameView();
        // MainController controller = new MainController(model);//, view);
     }
 
@@ -52,7 +52,7 @@ String testing5;
     }
 
     private void createAndShowGUI() {
-        board = new GameView(null);///this will be set up in the constructer so comment it out laters
+        board = new GameView(null, null);///this will be set up in the constructer so comment it out laters
         actionPlaceHolder = new JPanel();
         leftPlaceHolder = new JPanel();
         rightPlaceHolder = new JPanel();

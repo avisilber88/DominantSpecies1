@@ -36,6 +36,7 @@ public class ElementBag {
         }
         return elementBag.remove(r.nextInt(elementCount));
     }
+    
     public ElementTile getElement(ElementType type){
         int elementCount = elementBag.size();
         for(int i = 0; i < elementCount; i++){

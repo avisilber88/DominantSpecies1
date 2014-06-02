@@ -6,6 +6,7 @@
 
 package dominantspecies.view;
 
+import dominantspecies.MainController;
 import dominantspecies.model.ElementType;
 import dominantspecies.model.Game;
 import dominantspecies.model.Tile;
@@ -16,6 +17,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -65,7 +67,7 @@ public class GameView extends JPanel {
         tE = sE;//(int) (r / 1.73025);
     }
 
-    public GameView(Game model) {
+    public GameView(Game model, MainController controller) {
         setTileSize(HEXSIZE);//this is simple way to change tile size
         setElementSize(HEXSIZE / 5);
         //set up board here
@@ -267,7 +269,7 @@ boardElements[7][2].setElementType(ElementType.Grub);
                         g2.fill(board[i][j]);
 //                        g2.drawImage(img, 0, 0, this);
 
-                    } catch (Exception e) {
+                    } catch (IOException e) {
 
                     }
 
@@ -280,7 +282,7 @@ boardElements[7][2].setElementType(ElementType.Grub);
                         g2.fill(boardElements[2 * i + 1][j]);
 //                        g2.drawImage(img, 0, 0, this);
 
-                    } catch (Exception e) {
+                    } catch (IOException e) {
 
                     }
                     g2.draw(boardElements[2 * i + 2][j]);
