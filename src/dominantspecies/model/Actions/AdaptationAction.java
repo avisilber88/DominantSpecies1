@@ -8,6 +8,7 @@ package dominantspecies.model.Actions;
 
 import dominantspecies.model.ElementTile;
 import dominantspecies.model.Game;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +18,6 @@ public class AdaptationAction extends Action{
     Game game;
     
     public AdaptationAction(Game g){
-        super(new EyeballSpaces(3), new TileArea<ElementTile>(4));
+        super(new EyeballSpaces(3), new ArrayList<ElementTile>(4));
     }
 }

@@ -7,7 +7,7 @@
 package dominantspecies.model.Actions;
 
 import dominantspecies.model.Animal;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 
 /**
@@ -15,26 +15,45 @@ import java.util.LinkedList;
  * @author Tom
  */
 public class EyeballSpaces {
-    private final LinkedList<Animal> queue;//represents the player in the queue
+    private final ArrayList<EyeballSpace> queue;//represents the player in the queue
     private final int sizeLimit;
+    private int last = 0;
     
     public EyeballSpaces(int sizeLimit){
         this.sizeLimit = sizeLimit;
-        this.queue = new LinkedList();
+        this.queue = new ArrayList(sizeLimit);
+        for(int i = 0; i < sizeLimit; i++)//initialize to all null
+            queue.add(i, null);
     }
     
-    public Animal getNext(){
+    public EyeballSpace getNext(){
         if(!queue.isEmpty())
-            return queue.removeFirst();
+            return queue.remove(0);
+        last--;
         return null;
     }
     
-    public boolean add(Animal player){
-        if(queue.size() < sizeLimit){
-            queue.addLast(player);
+    public EyeballSpace get(int i){
+        return queue.get(i);
+    }
+    
+    public boolean add(EyeballSpace player){
+        if(last < sizeLimit){
+            queue.add(last, player);
+            last++;
             return true;
         }
         return false;        
+    }
+    
+    public boolean add(EyeballSpace player, int i){
+        if(i >=0 && i < sizeLimit){
+            if(queue.get(i) == null){
+                queue.add(i, player);
+                return true;
+            }
+        }
+        return false;
     }
     
     public int getSizeLimit(){

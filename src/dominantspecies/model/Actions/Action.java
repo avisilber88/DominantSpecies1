@@ -6,6 +6,9 @@
 
 package dominantspecies.model.Actions;
 
+import dominantspecies.model.ElementTile;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
@@ -20,9 +23,11 @@ package dominantspecies.model.Actions;
 //hold out on those for now...
 class Action {
     EyeballSpaces eyeballSpaces;
-    TileArea tileArea;    
+   // TileArea tileArea;///so i forgot wanderlust doesnt have tiles in its area
+                        //changing to regular list
+    ArrayList<ElementTile> tileArea;
     
-    public Action(EyeballSpaces spaces, TileArea area){
+    public Action(EyeballSpaces spaces, ArrayList area){
         eyeballSpaces = spaces;
         tileArea = area;
     }
