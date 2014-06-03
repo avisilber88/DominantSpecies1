@@ -6,6 +6,7 @@
 package dominantspecies.view;
 
 import dominantspecies.model.*;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
@@ -87,9 +88,32 @@ public class TileView extends Polygon {
           return 0;
     }
     
+    public Color getColor(){
+        switch (this.terrain){
+            case Sea:
+                return Color.BLUE;
+            case Wetlands:
+                return Color.cyan;
+            case Savannah:
+                return Color.LIGHT_GRAY;
+            case Jungle:
+                return Color.green;
+            case Forest:
+                return Color.black;
+            case Desert:
+                return Color.yellow;
+            case Mountain:
+                return Color.GRAY;
+            case Tundra:
+                return Color.white;
+        }
+        return null;
+    }
+    
     public String getImageName(){    
         //highley reccomend moving this to the view classes
-        return "images/"+this.getTerrain()+".jpeg";
+        System.out.println("images/"+this.getTerrain()+".jpeg");
+        return "src/dominantspecies/view/images/"+this.getTerrain()+".jpeg";
     }
          
 

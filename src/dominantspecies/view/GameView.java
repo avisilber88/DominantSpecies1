@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dominantspecies.view;
 
+import dominantspecies.DominantSpecies;
 import dominantspecies.MainController;
 import dominantspecies.model.ElementType;
 import dominantspecies.model.Game;
@@ -17,7 +17,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -73,7 +75,6 @@ public class GameView extends JPanel {
         //set up board here
         initBoard();
 
-        
     }
 
     //sets up the grids and sets the tiles to invalid
@@ -109,32 +110,32 @@ public class GameView extends JPanel {
                 if (boardElements[2 * i + 1][j] == null) {
                     boardElements[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0] - rE, cy[0], hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 2][j] == null) {
                     boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 3][j + i % 2] == null) {
                     boardElements[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 2][j + 1] == null) {
                     boardElements[2 * i + 2][j + 1] = new ElementTileView(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i + 1][j + 1] == null) {
                     boardElements[2 * i + 1][j + 1] = new ElementTileView(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElements[2 * i][j + i % 2] == null) {
                     boardElements[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
 
 //                boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
@@ -160,11 +161,11 @@ public class GameView extends JPanel {
         boardElements[9][3].setElementType(ElementType.Grass);
         boardElements[10][3].setElementType(ElementType.Sun);
         boardElements[6][3].setElementType(ElementType.Seed);
-boardElements[5][3].setElementType(ElementType.Grub);
-boardElements[6][4].setElementType(ElementType.Seed);
+        boardElements[5][3].setElementType(ElementType.Grub);
+        boardElements[6][4].setElementType(ElementType.Seed);
 
-boardElements[6][2].setElementType(ElementType.Water);
-boardElements[7][2].setElementType(ElementType.Grub);
+        boardElements[6][2].setElementType(ElementType.Water);
+        boardElements[7][2].setElementType(ElementType.Grub);
 
         boardElements[8][2].setElementType(ElementType.Water);
         boardElements[9][2].setElementType(ElementType.Grass);
@@ -207,37 +208,37 @@ boardElements[7][2].setElementType(ElementType.Grub);
                     boardElementsResizeCheck[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0] - rE, cy[0] - rE, hE, hE);
                     boardElements[2 * i + 1][j] = new ElementTileView(boardElements[2 * i + 1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 2][j] == null) {
                     boardElementsResizeCheck[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
                     boardElements[2 * i + 2][j] = new ElementTileView(boardElements[2 * i + 2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 3][j + i % 2] == null) {
                     boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
                     boardElements[2 * i + 3][j + i % 2] = new ElementTileView(boardElements[2 * i + 3][j + i % 2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 2][j + 1] == null) {
                     boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTileView(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
                     boardElements[2 * i + 2][j + 1] = new ElementTileView(boardElements[2 * i + 2][j + 1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i + 1][j + 1] == null) {
                     boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTileView(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
                     boardElements[2 * i + 1][j + 1] = new ElementTileView(boardElements[2 * i + 1][j + 1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
                 if (boardElementsResizeCheck[2 * i][j + i % 2] == null) {
                     boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
                     boardElements[2 * i][j + i % 2] = new ElementTileView(boardElements[2 * i][j + i % 2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
                 } else {
-                    System.out.println("see there was a copy");
+//                    System.out.println("see there was a copy");
                 }
 
             }
@@ -260,94 +261,69 @@ boardElements[7][2].setElementType(ElementType.Grub);
                     g2.fillPolygon(board[i][j]);
                     g2.setColor(COLOURGRID);
                     g2.drawPolygon(board[i][j]);
+                    if (board[i][j].getTerrain() != TileView.TerrainType.Invalid) {
+                        drawTile(i, j, g2); //this fills an element with an image
 
 //                    g2.setClip(board[i][j]);
-                    try {
-                        BufferedImage img = ImageIO.read(getClass().getResource(board[i][j].getImageName()));
-                        TexturePaint tex = new TexturePaint(img, board[i][j].getBounds2D());
-                        g2.setPaint(tex);
-                        g2.fill(board[i][j]);
-//                        g2.drawImage(img, 0, 0, this);
+                        g2.setColor(COLOURONE);
 
-                    } catch (IOException e) {
+                        drawElement(2 * i + 1, j, g2); //this fills an element with an image
 
+                        drawElement(2 * i + 2, j, g2);
+                        drawElement(2 * i + 3, j + i % 2, g2);
+                        drawElement(2 * i + 2, j + 1, g2);
+                        drawElement(2 * i + 1, j + 1, g2);
+                        drawElement(2 * i, j + i % 2, g2);
                     }
-
-                    g2.setColor(COLOURONE);
-                    g2.draw(boardElements[2 * i + 1][j]);
-                    try {
-                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 1][j].getImageName()));
-                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 1][j].getBounds2D());
-                        g2.setPaint(tex);
-                        g2.fill(boardElements[2 * i + 1][j]);
-//                        g2.drawImage(img, 0, 0, this);
-
-                    } catch (IOException e) {
-
-                    }
-                    g2.draw(boardElements[2 * i + 2][j]);
-                    try {
-                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 2][j].getImageName()));
-                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 2][j].getBounds2D());
-                        g2.setPaint(tex);
-                        g2.fill(boardElements[2 * i + 2][j]);
-//                        g2.drawImage(img, 0, 0, this);
-
-                    } catch (Exception e) {
-
-                    }
-                    g2.draw(boardElements[2 * i + 3][j + i % 2]);
-                    try {
-                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 3][j + i % 2].getImageName()));
-                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 3][j + i % 2].getBounds2D());
-                        g2.setPaint(tex);
-                        g2.fill(boardElements[2 * i + 3][j + i % 2]);
-//                        g2.drawImage(img, 0, 0, this);
-
-                    } catch (Exception e) {
-
-                    }
-
-                    g2.draw(boardElements[2 * i + 2][j + 1]);
-                    try {
-                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 2][j + 1].getImageName()));
-                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 2][j + 1].getBounds2D());
-                        g2.setPaint(tex);
-                        g2.fill(boardElements[2 * i + 2][j + 1]);
-//                        g2.drawImage(img, 0, 0, this);
-
-                    } catch (Exception e) {
-
-                    }
-
-                    g2.draw(boardElements[2 * i + 1][j + 1]);
-                    try {
-                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i + 1][j + 1].getImageName()));
-                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i + 1][j + i % 2].getBounds2D());
-                        g2.setPaint(tex);
-                        g2.fill(boardElements[2 * i + 1][j + 1]);
-//                        g2.drawImage(img, 0, 0, this);
-
-                    } catch (Exception e) {
-
-                    }
-
-                    g2.draw(boardElements[2 * i][j + i % 2]);
-                    try {
-                        BufferedImage img = ImageIO.read(getClass().getResource(boardElements[2 * i][j + i % 2].getImageName()));
-                        TexturePaint tex = new TexturePaint(img, boardElements[2 * i][j + i % 2].getBounds2D());
-                        g2.setPaint(tex);
-                        g2.fill(boardElements[2 * i][j + i % 2]);
-//                        g2.drawImage(img, 0, 0, this);
-
-                    } catch (Exception e) {
-
-                    }
-
                 } else {
                     //System.out.println("NO TENGO => [ " + i + " , " + j + " ]");
                 }
             }
+        }
+
+    }
+
+//    public void drawElements(){
+//        
+//    }
+    public void drawElement(int i, int j, Graphics2D g2) {
+//if (boardElements[i][j].getElementType()!=ElementType.)
+        g2.draw(boardElements[i][j]);
+        try {
+            BufferedImage img = ImageIO.read(getClass().getResource(boardElements[i][j].getImageName()));
+            TexturePaint tex = new TexturePaint(img, boardElements[i][j].getBounds2D());
+            g2.setPaint(tex);
+            g2.fill(boardElements[i][j]);
+//                        g2.drawImage(img, 0, 0, this);
+
+        } catch (IOException e) {
+
+            
+        } catch (IllegalArgumentException e){
+         System.out.println("hi");
+        g2.setColor(boardElements[i][j].getColor());
+        g2.fill(boardElements[i][j]);
+        g2.setColor(Color.orange);
+        }
+
+    }
+//C:\Users\Avi\Documents\NetBeansProjects\DominantSpecies1\src\dominantspecies\view\GameView.java
+    public void drawTile(int i, int j, Graphics2D g2) {
+        try {
+//            System.out.println("here: "+(board[i][j].getImageName()));z
+            URL blah = getClass().getResource("../Jungle.jpeg");
+            BufferedImage img = ImageIO.read(blah);
+            TexturePaint tex = new TexturePaint(img, board[i][j].getBounds2D());
+            g2.setPaint(tex);
+            g2.fill(board[i][j]);
+//                        g2.drawImage(img, 0, 0, this);
+
+        } catch (IOException e) {
+
+        } catch (IllegalArgumentException e){
+             g2.setColor(board[i][j].getColor());
+        g2.fill(board[i][j]);
+        g2.setColor(Color.orange);
         }
 
     }
