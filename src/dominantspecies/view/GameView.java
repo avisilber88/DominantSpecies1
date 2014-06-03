@@ -300,7 +300,7 @@ public class GameView extends JPanel {
 
             
         } catch (IllegalArgumentException e){
-         System.out.println("hi");
+//         System.out.println("hi");
         g2.setColor(boardElements[i][j].getColor());
         g2.fill(boardElements[i][j]);
         g2.setColor(Color.orange);
