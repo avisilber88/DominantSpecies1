@@ -18,6 +18,7 @@ import java.awt.RenderingHints;
 import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
@@ -246,6 +247,7 @@ public class GameView extends JPanel {
 
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -290,7 +292,9 @@ public class GameView extends JPanel {
 //if (boardElements[i][j].getElementType()!=ElementType.)
         g2.draw(boardElements[i][j]);
         try {
-            BufferedImage img = ImageIO.read(getClass().getResource(boardElements[i][j].getImageName()));
+            System.out.println();
+            BufferedImage img = ImageIO.read(new FileInputStream(boardElements[i][j].getImageName()));
+                    
             TexturePaint tex = new TexturePaint(img, boardElements[i][j].getBounds2D());
             g2.setPaint(tex);
             g2.fill(boardElements[i][j]);
@@ -311,8 +315,8 @@ public class GameView extends JPanel {
     public void drawTile(int i, int j, Graphics2D g2) {
         try {
 //            System.out.println("here: "+(board[i][j].getImageName()));z
-            URL blah = getClass().getResource("../Jungle.jpeg");
-            BufferedImage img = ImageIO.read(blah);
+//            URL blah = new FileInputStream(board[i][j].getImageName());
+            BufferedImage img = ImageIO.read(new FileInputStream(board[i][j].getImageName()));
             TexturePaint tex = new TexturePaint(img, board[i][j].getBounds2D());
             g2.setPaint(tex);
             g2.fill(board[i][j]);

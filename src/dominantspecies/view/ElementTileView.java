@@ -33,8 +33,8 @@ public class ElementTileView extends Ellipse2D.Float{
           this.elementType=elementType;
       }
       public String getImageName(){
-          //highley reccomend moving this to the view classes
-          return "images/"+this.elementType+".jpeg";
+          //highley reccomend moving this to the view classes "src/dominantspecies/view/images/Desert.jpeg"
+          return "src/dominantspecies/view/images/"+this.elementType+".jpeg";
       }
           public Color getColor(){
         switch (elementType){
