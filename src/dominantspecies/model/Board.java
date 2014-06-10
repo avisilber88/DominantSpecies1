@@ -23,11 +23,12 @@ public class Board extends JPanel {
     Tile[][] board;
     ElementTile[][] boardElements;   
 
-    public Board() {
+    public Board(boolean defaultSetup) {
         board = new Tile[BSIZE][BSIZE - 1];
         boardElements = new ElementTile[2 * (BSIZE + 1)][BSIZE];
-        initBoard();   
-        defaultSettings();
+        initBoard(); 
+        if(defaultSetup)
+            defaultSettings();
     }
 
     //sets up the grids and sets the tiles to invalid

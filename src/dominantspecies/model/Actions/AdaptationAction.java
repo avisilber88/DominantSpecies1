@@ -15,9 +15,9 @@ import java.util.ArrayList;
  * @author Tom
  */
 public class AdaptationAction extends Action{
-    Game game;
+   // Game game;
     
-    public AdaptationAction(Game g){
+    public AdaptationAction(){
         super(new EyeballSpaces(3), new ArrayList(4));
     }
 }
