@@ -23,8 +23,8 @@ import java.util.ArrayList;
 //hold out on those for now...
 class Action {
     EyeballSpaces eyeballSpaces;
-   // TileArea tileArea;///so i forgot wanderlust doesnt have tiles in its area
-                        //changing to regular list
+   // TileArea tileArea;///so i forgot wanderlust doesnt have terraintiles in its area
+                        //it has element tiles so.... changing to arraylist
     ArrayList<ElementTile> tileArea;
     
     public Action(EyeballSpaces spaces, ArrayList area){
