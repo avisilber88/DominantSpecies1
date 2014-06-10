@@ -7,6 +7,7 @@
 package dominantspecies.view;
 
 import dominantspecies.model.*;
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 
@@ -32,8 +33,26 @@ public class ElementTileView extends Ellipse2D.Float{
           this.elementType=elementType;
       }
       public String getImageName(){
-          //highley reccomend moving this to the view classes
-          return "images/"+this.elementType+".jpeg";
+          //highley reccomend moving this to the view classes "src/dominantspecies/view/images/Desert.jpeg"
+          return "src/dominantspecies/view/images/"+this.elementType+".jpeg";
       }
+          public Color getColor(){
+        switch (elementType){
+            case Grub:
+                return Color.pink;
+            case Meat:
+                return Color.white;
+            case Water:
+                return Color.blue;
+            case Grass:
+                return Color.green;
+            case Seed:
+                return Color.yellow;
+            case Sun:
+                return Color.RED;
+            
+        }
+        return null;
+    }
 //      public 
 }
