@@ -18,6 +18,6 @@ public class AdaptationAction extends Action{
     Game game;
     
     public AdaptationAction(Game g){
-        super(new EyeballSpaces(3), new ArrayList<ElementTile>(4));
+        super(new EyeballSpaces(3), new ArrayList(4));
     }
 }
