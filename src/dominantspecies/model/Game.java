@@ -6,8 +6,9 @@
 
 package dominantspecies.model;
 
-import java.util.List;
+import dominantspecies.model.Actions.ActionDisplay;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Game {
     private Board board;
-  //  private ActionDisplay actionDisplay;
+    private ActionDisplay actionDisplay;
    private ElementBag elementBag;
     private List<Player> players = new ArrayList<Player>();
     
@@ -29,7 +30,7 @@ public class Game {
       
       board = new Board();
       elementBag = new ElementBag();
-     // actionDisplay = new ActionDisplay();
+     // actionDisplay = new ActionDisplay(game);
      // if (defaultSetup)
        // DefaultSetup();
     
