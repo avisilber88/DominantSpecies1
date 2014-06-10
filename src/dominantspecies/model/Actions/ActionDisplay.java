@@ -6,13 +6,16 @@
 
 package dominantspecies.model.Actions;
 
+import java.util.List;
+
 /**
  *
  * @author Tom
  */
 public class ActionDisplay {
-     
-    public ActionDisplay(){
+    List<Action> actions;
+    
+    public ActionDisplay(){//might need to pass the game in here because i need to get the players and element bag
          
     }
 }
