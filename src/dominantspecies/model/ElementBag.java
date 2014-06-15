@@ -16,8 +16,8 @@ import java.util.Random;
  */
 public class ElementBag {
     private final int initNumElementPerType = 20;
-    private List<ElementTile> elementBag;
-    private Random r;
+    private final List<ElementTile> elementBag;
+    private final Random r;
     
     public ElementBag(){
         elementBag = new ArrayList<>();

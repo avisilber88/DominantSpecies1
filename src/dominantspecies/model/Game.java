@@ -33,6 +33,7 @@ public class Game {
 
     }
 
+
     public final void DefaultSetup() {
         players.add(new Player(Animal.Amphibian));
         players.add(new Player(Animal.Insect));

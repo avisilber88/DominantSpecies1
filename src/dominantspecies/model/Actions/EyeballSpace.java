@@ -8,6 +8,7 @@ package dominantspecies.model.Actions;
 
 import dominantspecies.model.Animal;
 import dominantspecies.model.ElementType;
+import dominantspecies.model.TerrainType;
 import dominantspecies.model.Tile;
 
 /**
@@ -17,7 +18,7 @@ import dominantspecies.model.Tile;
 public class EyeballSpace {
     private Animal animal;
     private int migrationCount = -1;
-    private Tile.TerrainType[] speciationTerrains = null;
+    private TerrainType[] speciationTerrains = null;
     private ElementType element = null;
 
     
@@ -35,7 +36,7 @@ public class EyeballSpace {
         this.migrationCount = migrationCount;
     }
     //for competition
-    EyeballSpace(Animal animal, Tile.TerrainType[] terrains){
+    EyeballSpace(Animal animal, TerrainType[] terrains){
         this.animal = animal;
         this.speciationTerrains = terrains;
     }
@@ -57,11 +58,11 @@ public class EyeballSpace {
         this.migrationCount = migrationCount;
     }
 
-    public Tile.TerrainType[] getSpeciationTerrains() {
+    public TerrainType[] getSpeciationTerrains() {
         return speciationTerrains;
     }
 
-    public void setSpeciationTerrains(Tile.TerrainType[] speciationTerrains) {
+    public void setSpeciationTerrains(TerrainType[] speciationTerrains) {
         this.speciationTerrains = speciationTerrains;
     }
 

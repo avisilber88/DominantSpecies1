@@ -10,13 +10,17 @@ package dominantspecies.model;
  *
  * @author Tom
  */
-public enum ElementType{        
-        Grass,
-        Grub,
-        Meat,
-        Seed,
-        Sun,
-        Water, 
-        Invalid,
-        None
-    }
+
+public enum TerrainType {
+
+        Tundra,
+        Forest,
+        Jungle,
+        Mountain,
+        Desert,
+        Sea,
+        Wetlands,
+        Savannah,
+        None,
+        Invalid
+}

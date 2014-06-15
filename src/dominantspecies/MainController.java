@@ -24,7 +24,7 @@ public class MainController{// implements MouseListener{
     public MainController(Game model, GameView gameview){//, GameView view){
         this.model = model;
         this.view = view;
-      //  view.addMouseListener(this);
+        //view.addMouseListener(this);
         //settlers version seems to pass the client around and call methods from it
         //however this kind of goes against the MVC concept of separation
     }

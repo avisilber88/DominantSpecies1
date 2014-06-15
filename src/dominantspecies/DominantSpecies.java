@@ -25,7 +25,8 @@ import javax.swing.JPanel;
  */
 public class DominantSpecies {
 //int SCRSIZE;
-GameView board;
+private static GameView board;
+private static Game game;
 JPanel actionPlaceHolder, rightPlaceHolder, leftPlaceHolder;
 JFrame frame;
 String WinstonTested;
@@ -42,17 +43,18 @@ String testing5;
         // TODO code application logic here
         new DominantSpecies();//comment this out
         //uncomment below
-       // Game model = new Game();
-       // GameView view = new GameView();
+        
        // MainController controller = new MainController(model);//, view);
     }
 
     public DominantSpecies() {
+        game = new Game(true);
+        board = new GameView(game, null);
         createAndShowGUI();
     }
 
     private void createAndShowGUI() {
-        board = new GameView(null, null);///this will be set up in the constructer so comment it out laters
+        //board = new GameView(null, null);///this will be set up in the constructer so comment it out laters
         actionPlaceHolder = new JPanel();
         leftPlaceHolder = new JPanel();
         rightPlaceHolder = new JPanel();
@@ -71,7 +73,13 @@ String testing5;
 //        board.setPreferredSize(new Dimension((int) (StartSize * (25.0 / 40)), (int) ((StartSize * (25.0 / 40)))));
 //        board.setMaximumSize(new Dimension((int) (StartSize * (25.0 / 40)), (int) ((StartSize * (25.0 / 40)))));
 
-        board.realignBoard(board.getHeight());
+        
+        
+       //this shouldnt be needed, calling inherant repaint method on resize
+        //board.realignBoard(board.getHeight());
+        
+        
+        
 //        board.setSize((int)(board.SCRSIZE/1.23), board.SCRSIZE);
 //       board.setBounds(0, 0, (int)(board.SCRSIZE/1.23), (int)board.SCRSIZE);
         actionPlaceHolder.setBackground(Color.red);
@@ -115,7 +123,8 @@ String testing5;
         setSizes(board, 22.0, 22.0);
         setSizes(actionPlaceHolder, 8.0, 22.0);
         setSizes(rightPlaceHolder, 4.0, 22.0);
-        board.realignBoard(board.getHeight());
+        //board.realignBoard(board.getHeight());
+        board.repaint();
 
     }
     public void setSizes(JPanel panel, double width, double height){

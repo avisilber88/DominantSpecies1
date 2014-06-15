@@ -5,6 +5,8 @@
  */
 package dominantspecies.model;
 
+import java.awt.Color;
+
 
 /**
  *
@@ -12,7 +14,7 @@ package dominantspecies.model;
  */
 public class Tile {
     
-    public static enum TerrainType {
+/*    public static enum TerrainType {
 
         Tundra,
         Forest,
@@ -22,10 +24,15 @@ public class Tile {
         Sea,
         Wetlands,
         Savannah,
+        None,
         Invalid
     }
-    
+    */
     private TerrainType terrain;
+    
+    public Tile(){
+        this.terrain = TerrainType.Invalid; 
+    }
     
     public Tile(TerrainType terrain){
         this.terrain = terrain; 
@@ -80,7 +87,27 @@ public class Tile {
           }
           return 0;
     }
-    
+    public Color getColor(){
+        switch (this.terrain){
+            case Sea:
+                return Color.BLUE;
+            case Wetlands:
+                return Color.cyan;
+            case Savannah:
+                return Color.LIGHT_GRAY;
+            case Jungle:
+                return Color.green;
+            case Forest:
+                return Color.black;
+            case Desert:
+                return Color.yellow;
+            case Mountain:
+                return Color.GRAY;
+            case Tundra:
+                return Color.white;
+        }
+        return null;
+    }
     public String getImageName(){    
         //might reccomend moving this to the view classes
         return "images/"+this.getTerrain()+".jpeg";

@@ -6,6 +6,7 @@
 
 package dominantspecies.model;
 
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 
@@ -16,6 +17,9 @@ import java.awt.geom.Ellipse2D;
 public class ElementTile {
     private ElementType elementType;
     
+     public ElementTile(){
+          this.elementType = ElementType.None;
+      }
       public ElementTile(ElementType elementType){
           this.elementType = elementType;
       }
@@ -29,4 +33,24 @@ public class ElementTile {
           //might reccomend moving this to the view classes
           return "images/"+this.elementType+".jpeg";
       }
+
+    public Color getColor() {
+        switch(this.elementType){
+            case None:
+                return Color.WHITE;
+            case Seed:
+                return Color.YELLOW;
+            case Water:
+                return Color.BLUE;
+            case Sun:
+                return Color.ORANGE;
+            case Grass:
+                return Color.GREEN;
+            case Grub:
+                return Color.PINK;
+            case Meat:
+                return Color.RED;
+        }
+        return null;
+    }
 }

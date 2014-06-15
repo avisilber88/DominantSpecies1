@@ -82,6 +82,17 @@ public class Board {
 
         board[3][2].setTerrain(TerrainType.Tundra);
 /*
+        //NEED TO RE FORMAT THE SET UP
+        //TALK TO ME IF YOU NEED HELP WITH THE NEW COORDS
+        
+            (1,0)----(2,0)          (5,0)----(6,0)
+            /           \           /
+        (0,0)           (3,0)----(4,0)
+            \           /           \
+            (1,1)----(2,1)          (5,1)----(6,1)
+            /           \           /
+        (0,1)           (3,1)----(4,1)
+        
         boardElements[7][3].setElementType(ElementType.Meat);
         boardElements[8][3].setElementType(ElementType.Sun);
         boardElements[9][4].setElementType(ElementType.Meat);
