@@ -166,34 +166,46 @@ public class GameView extends JPanel {
         super.paintComponent(g2);
         System.err.println("board.length = "+board.length+"\nboardelements.length = "+boardElements.length);
         //draw grid
+        int vertex;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
+               // System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
                 if (board[i][j].getTerrain() != TerrainType.Invalid) {
-                    TileFactory.drawTile(i, j, board[i][j], g2); //this fills an element with an image
-                    //int[] hex_i_corners = {2 * i + 1, 2 * i + 2, 2 * i + 3,2 * i + 2,2 * i + 1,2 * i};
-                    //int[] hex_j_corners = {j, j, j+i%2, j+1, j+1, j+i%2};
-                   /* g2.setColor(COLOURONE);
-                    
-                    TileFactory.drawElement(2 * i + 1, j, boardElements[2 * i + 1][j], g2); //this fills an element with an image
-
-                    TileFactory.drawElement(2 * i + 2, j, boardElements[2 * i + 2][j], g2);
-                    TileFactory.drawElement(2 * i + 3, j + i % 2, boardElements[2 * i + 3][j+i%2], g2);
-                    TileFactory.drawElement(2 * i + 2, j + 1, boardElements[2 * i + 2][j+1], g2);
-                    TileFactory.drawElement(2 * i + 1, j + 1, boardElements[2 * i + 1][j+1], g2);
-                    TileFactory.drawElement(2 * i, j + i % 2, boardElements[2 * i][j+i%2], g2);
-                     */
+                    g2.setColor(COLOURONE);
+                    TileFactory.drawTile(i, j, board[i][j], g2); //this fills an element with an image                    
                 }
             }
         }
-        for (int i = 0; i < boardElements.length; i++) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+               // System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
+                if (board[i][j].getTerrain() != TerrainType.Invalid) {
+                    //vertex=0;
+                    TileFactory.drawElement(i, j, 5, boardElements[i][j], g2); //this fills an element with an image
+                    TileFactory.drawElement(i, j, 0, boardElements[i+1][j], g2); //this fills an element with an image
+                    TileFactory.drawElement(i, j, 1, boardElements[i+2][j], g2); //this fills an element with an image
+                    TileFactory.drawElement(i, j, 2, boardElements[i+3][j], g2); //this fills an element with an image
+                    TileFactory.drawElement(i, j, 3, boardElements[i+2][j + 1], g2); //this fills an element with an image
+                    TileFactory.drawElement(i, j, 4, boardElements[i+1][j + 1], g2); //this fills an element with an image
+                    
+                  //  TileFactory.drawElement(2 * i + 1, j, vertex++, boardElements[2 * i + 1][j], g2); //this fills an element with an image
+                  //  TileFactory.drawElement(2 * i + 2, j, vertex++, boardElements[2 * i + 2][j], g2);
+                  //  TileFactory.drawElement(2 * i + 3, j + i % 2, vertex++,  boardElements[2 * i + 3][j+i%2], g2);
+                  //  TileFactory.drawElement(2 * i + 2, j + 1, vertex++,boardElements[2 * i + 2][j+1], g2);
+                  //  TileFactory.drawElement(2 * i + 1, j + 1,vertex++, boardElements[2 * i + 1][j+1], g2);
+                  //  TileFactory.drawElement(2 * i, j + i % 2, vertex++,boardElements[2 * i][j+i%2], g2);
+                     
+                }
+            }
+        }
+       /* for (int i = 0; i < boardElements.length; i++) {
             for (int j = 0; j < boardElements[i].length; j++) {
                // if (board[i/2][j/3].getTerrain() != TerrainType.Invalid) {
                     TileFactory.drawElement(i, j, boardElements[i][j], g2); //this fills an element with an image
                     
                // }
             }
-        }
+        }*/
 
     }
 
