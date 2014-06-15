@@ -7,8 +7,10 @@ package dominantspecies.view;
 
 import dominantspecies.DominantSpecies;
 import dominantspecies.MainController;
+import dominantspecies.model.ElementTile;
 import dominantspecies.model.ElementType;
 import dominantspecies.model.Game;
+import dominantspecies.model.TerrainType;
 import dominantspecies.model.Tile;
 import java.awt.Color;
 import java.awt.Font;
@@ -49,12 +51,13 @@ public class GameView extends JPanel {
 
     // public static boolean XYVertex=false;
     //  final static Tile EMPTY = new Tile(Tile.TerrainType.Invalid);
-    final static int BSIZE = 7; //board size.
+//  final static int BSIZE = 7; //board size.
     final static int HEXSIZE = 60;	//hex size in pixels
     final static int BORDERS = 15;
-    final static int SCRSIZE = 525;//HEXSIZE * (BSIZE + 1) + BORDERS * 3; //screen size (vertical dimension).
-    TileView[][] board = new TileView[BSIZE][BSIZE - 1];
-    ElementTileView[][] boardElements = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
+   // final static int SCRSIZE = 525;//HEXSIZE * (BSIZE + 1) + BORDERS * 3; //screen size (vertical dimension).
+    Game game;
+    Tile[][] board;// = new TileView[BSIZE][BSIZE - 1];
+    ElementTile[][] boardElements;// = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
 
     public static void setTileSize(int height) {
         h = height;			// h = basic dimension: height (distance between two adj centresr aka size)
@@ -71,230 +74,137 @@ public class GameView extends JPanel {
     }
 
     public GameView(Game model, MainController controller) {
-        setTileSize(HEXSIZE);//this is simple way to change tile size
-        setElementSize(HEXSIZE / 5);
+        TileFactory.setTileSize(HEXSIZE);//TileSize(HEXSIZE);//this is simple way to change tile size
+        TileFactory.setElementSize(HEXSIZE / 5);
+
+        this.game = model;
+        this.board = this.game.getBoard().getBoard();
+        this.boardElements = this.game.getBoard().getBoardElements();
+
         //set up board here
-        initBoard();
-
     }
 
-    //sets up the grids and sets the tiles to invalid
-    //setupBoard() will set the initial game tiles and element things
-    public final void initBoard() {
-        for (int i = 0; i < BSIZE; i++) {
-            for (int j = 0; j < (BSIZE - 1); j++) {
-                int x0 = i * (s + t);
-                int y0 = j * h + (i % 2) * h / 2;
-                int x = x0 + BORDERS; // + (XYVertex ? t : 0); //Fix added for XYVertex = true. 
-                // NO! Done below in cx= section
-                int y = y0 + BORDERS;
+    /*
+     public void realignBoard(int height) {
 
-                if (s == 0 || h == 0) {
-                    System.out.println("ERROR: size of hex has not been set");
-                    //return new Polygon();
-                }
+     int hexSizeNew = (height - BORDERS * 3) / (BSIZE - 1);
+     setTileSize(hexSizeNew);
+     setElementSize(hexSizeNew / 5);
+     ElementTileView[][] boardElementsResizeCheck = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
+     for (int i = 0; i < BSIZE; i++) {
+     for (int j = 0; j < (BSIZE - 1); j++) {
+     int x0 = i * (s + t);
+     int y0 = j * h + (i % 2) * h / 2;
+     int x = x0 + BORDERS; // + (XYVertex ? t : 0); //Fix added for XYVertex = true. 
+     // NO! Done below in cx= section
+     int y = y0 + BORDERS;
 
-                int[] cx, cy;
+     if (s == 0 || h == 0) {
+     System.out.println("ERROR: size of hex has not been set");
+     //return new Polygon();
+     }
 
-//I think that this XYvertex stuff is taken care of in the int x line above. Why is it here twice?
-		/*TOM says fuck the xyvertex since its always false
-                 if (XYVertex) 
-                 cx = new int[] {x,x+s,x+s+t,x+s,x,x-t};  //this is for the top left vertex being at x,y. Which means that some of the hex is cutoff.
-                 else
-                 */
-                cx = new int[]{x + t, x + s + t, x + s + t + t, x + s + t, x + t, x};	//this is for the whole hexagon to be below and to the right of this point
+     int[] cx, cy;
 
-                cy = new int[]{y, y, y + r, y + r + r, y + r + r, y + r};
+     //I think that this XYvertex stuff is taken care of in the int x line above. Why is it here twice?
+     /*TOM says fuck the xyvertex since its always false
+     if (XYVertex) 
+     cx = new int[] {x,x+s,x+s+t,x+s,x,x-t};  //this is for the top left vertex being at x,y. Which means that some of the hex is cutoff.
+     else
+     ///*
+     cx = new int[]{x + t, x + s + t, x + s + t + t, x + s + t, x + t, x};	//this is for the whole hexagon to be below and to the right of this point
 
-                board[i][j] = new TileView(TileView.TerrainType.Invalid, cx, cy);
+     cy = new int[]{y, y, y + r, y + r + r, y + r + r, y + r};
 
-                if (boardElements[2 * i + 1][j] == null) {
-                    boardElements[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0] - rE, cy[0], hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElements[2 * i + 2][j] == null) {
-                    boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElements[2 * i + 3][j + i % 2] == null) {
-                    boardElements[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElements[2 * i + 2][j + 1] == null) {
-                    boardElements[2 * i + 2][j + 1] = new ElementTileView(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElements[2 * i + 1][j + 1] == null) {
-                    boardElements[2 * i + 1][j + 1] = new ElementTileView(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElements[2 * i][j + i % 2] == null) {
-                    boardElements[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
+     board[i][j] = new TileView(board[i][j].getTerrain(), cx, cy);
 
-//                boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
-//                boardElements[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[0], cy[0], sE, hE);
-            }
-        }
+     if (boardElementsResizeCheck[2 * i + 1][j] == null) {
+     boardElementsResizeCheck[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0] - rE, cy[0] - rE, hE, hE);
+     boardElements[2 * i + 1][j] = new ElementTileView(boardElements[2 * i + 1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
+     } else {
+     //                    System.out.println("see there was a copy");
+     }
+     if (boardElementsResizeCheck[2 * i + 2][j] == null) {
+     boardElementsResizeCheck[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
+     boardElements[2 * i + 2][j] = new ElementTileView(boardElements[2 * i + 2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
+     } else {
+     //                    System.out.println("see there was a copy");
+     }
+     if (boardElementsResizeCheck[2 * i + 3][j + i % 2] == null) {
+     boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
+     boardElements[2 * i + 3][j + i % 2] = new ElementTileView(boardElements[2 * i + 3][j + i % 2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
+     } else {
+     //                    System.out.println("see there was a copy");
+     }
+     if (boardElementsResizeCheck[2 * i + 2][j + 1] == null) {
+     boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTileView(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
+     boardElements[2 * i + 2][j + 1] = new ElementTileView(boardElements[2 * i + 2][j + 1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
+     } else {
+     //                    System.out.println("see there was a copy");
+     }
+     if (boardElementsResizeCheck[2 * i + 1][j + 1] == null) {
+     boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTileView(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
+     boardElements[2 * i + 1][j + 1] = new ElementTileView(boardElements[2 * i + 1][j + 1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
+     } else {
+     //                    System.out.println("see there was a copy");
+     }
+     if (boardElementsResizeCheck[2 * i][j + i % 2] == null) {
+     boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
+     boardElements[2 * i][j + i % 2] = new ElementTileView(boardElements[2 * i][j + i % 2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
+     } else {
+     //                    System.out.println("see there was a copy");
+     }
 
-        board[3][1].setTerrain(TileView.TerrainType.Wetlands);
-        board[4][2].setTerrain(TileView.TerrainType.Savannah);
-        board[4][3].setTerrain(TileView.TerrainType.Desert);
-        board[3][3].setTerrain(TileView.TerrainType.Mountain);
-        board[2][3].setTerrain(TileView.TerrainType.Forest);
-        board[2][2].setTerrain(TileView.TerrainType.Jungle);
-
-        board[3][2].setTerrain(TileView.TerrainType.Tundra);
-
-        boardElements[7][3].setElementType(ElementType.Meat);
-        boardElements[8][3].setElementType(ElementType.Sun);
-        boardElements[9][4].setElementType(ElementType.Meat);
-        boardElements[9][3].setElementType(ElementType.Grass);
-        boardElements[10][3].setElementType(ElementType.Sun);
-        boardElements[6][3].setElementType(ElementType.Seed);
-        boardElements[5][3].setElementType(ElementType.Grub);
-        boardElements[6][4].setElementType(ElementType.Seed);
-
-        boardElements[6][2].setElementType(ElementType.Water);
-        boardElements[7][2].setElementType(ElementType.Grub);
-
-        boardElements[8][2].setElementType(ElementType.Water);
-        boardElements[9][2].setElementType(ElementType.Grass);
-    }
-
-    public void realignBoard(int height) {
-
-        int hexSizeNew = (height - BORDERS * 3) / (BSIZE - 1);
-        setTileSize(hexSizeNew);
-        setElementSize(hexSizeNew / 5);
-        ElementTileView[][] boardElementsResizeCheck = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
-        for (int i = 0; i < BSIZE; i++) {
-            for (int j = 0; j < (BSIZE - 1); j++) {
-                int x0 = i * (s + t);
-                int y0 = j * h + (i % 2) * h / 2;
-                int x = x0 + BORDERS; // + (XYVertex ? t : 0); //Fix added for XYVertex = true. 
-                // NO! Done below in cx= section
-                int y = y0 + BORDERS;
-
-                if (s == 0 || h == 0) {
-                    System.out.println("ERROR: size of hex has not been set");
-                    //return new Polygon();
-                }
-
-                int[] cx, cy;
-
-//I think that this XYvertex stuff is taken care of in the int x line above. Why is it here twice?
-		/*TOM says fuck the xyvertex since its always false
-                 if (XYVertex) 
-                 cx = new int[] {x,x+s,x+s+t,x+s,x,x-t};  //this is for the top left vertex being at x,y. Which means that some of the hex is cutoff.
-                 else
-                 */
-                cx = new int[]{x + t, x + s + t, x + s + t + t, x + s + t, x + t, x};	//this is for the whole hexagon to be below and to the right of this point
-
-                cy = new int[]{y, y, y + r, y + r + r, y + r + r, y + r};
-
-                board[i][j] = new TileView(board[i][j].getTerrain(), cx, cy);
-
-                if (boardElementsResizeCheck[2 * i + 1][j] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j] = new ElementTileView(ElementType.None, cx[0] - rE, cy[0] - rE, hE, hE);
-                    boardElements[2 * i + 1][j] = new ElementTileView(boardElements[2 * i + 1][j].getElementType(), cx[0] - rE, cy[0] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElementsResizeCheck[2 * i + 2][j] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j] = new ElementTileView(ElementType.None, cx[1] - rE, cy[1] - rE, hE, hE);
-                    boardElements[2 * i + 2][j] = new ElementTileView(boardElements[2 * i + 2][j].getElementType(), cx[1] - rE, cy[1] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElementsResizeCheck[2 * i + 3][j + i % 2] == null) {
-                    boardElementsResizeCheck[2 * i + 3][j + i % 2] = new ElementTileView(ElementType.None, cx[2] - rE, cy[2] - rE, hE, hE);
-                    boardElements[2 * i + 3][j + i % 2] = new ElementTileView(boardElements[2 * i + 3][j + i % 2].getElementType(), cx[2] - rE, cy[2] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElementsResizeCheck[2 * i + 2][j + 1] == null) {
-                    boardElementsResizeCheck[2 * i + 2][j + 1] = new ElementTileView(ElementType.None, cx[3] - rE, cy[3] - rE, hE, hE);
-                    boardElements[2 * i + 2][j + 1] = new ElementTileView(boardElements[2 * i + 2][j + 1].getElementType(), cx[3] - rE, cy[3] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElementsResizeCheck[2 * i + 1][j + 1] == null) {
-                    boardElementsResizeCheck[2 * i + 1][j + 1] = new ElementTileView(ElementType.None, cx[4] - rE, cy[4] - rE, hE, hE);
-                    boardElements[2 * i + 1][j + 1] = new ElementTileView(boardElements[2 * i + 1][j + 1].getElementType(), cx[4] - rE, cy[4] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-                if (boardElementsResizeCheck[2 * i][j + i % 2] == null) {
-                    boardElementsResizeCheck[2 * i][j + i % 2] = new ElementTileView(ElementType.None, cx[5] - rE, cy[5] - rE, hE, hE);
-                    boardElements[2 * i][j + i % 2] = new ElementTileView(boardElements[2 * i][j + i % 2].getElementType(), cx[5] - rE, cy[5] - rE, hE, hE);
-                } else {
-//                    System.out.println("see there was a copy");
-                }
-
-            }
-        }
-
-    }
-
+     }
+     }
+     }*/
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g2.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         super.paintComponent(g2);
+        System.err.println("board.length = "+board.length+"\nboardelements.length = "+boardElements.length);
         //draw grid
-        for (int i = 0; i < BSIZE; i++) {
-            for (int j = 0; j < BSIZE - 1; j++) {
-                if (checkHexExist(i, j)) {
-                    //System.out.println("TENGO! => [ " + i + " , " + j + " ]");
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
+                if (board[i][j].getTerrain() != TerrainType.Invalid) {
+                    TileFactory.drawTile(i, j, board[i][j], g2); //this fills an element with an image
+                    //int[] hex_i_corners = {2 * i + 1, 2 * i + 2, 2 * i + 3,2 * i + 2,2 * i + 1,2 * i};
+                    //int[] hex_j_corners = {j, j, j+i%2, j+1, j+1, j+i%2};
+                   /* g2.setColor(COLOURONE);
+                    
+                    TileFactory.drawElement(2 * i + 1, j, boardElements[2 * i + 1][j], g2); //this fills an element with an image
 
-                    g2.setColor(COLOURCELL);
-                    g2.fillPolygon(board[i][j]);
-                    g2.setColor(COLOURGRID);
-                    g2.drawPolygon(board[i][j]);
-                    if (board[i][j].getTerrain() != TileView.TerrainType.Invalid) {
-                        drawTile(i, j, g2); //this fills an element with an image
-
-//                    g2.setClip(board[i][j]);
-                        g2.setColor(COLOURONE);
-
-                        drawElement(2 * i + 1, j, g2); //this fills an element with an image
-
-                        drawElement(2 * i + 2, j, g2);
-                        drawElement(2 * i + 3, j + i % 2, g2);
-                        drawElement(2 * i + 2, j + 1, g2);
-                        drawElement(2 * i + 1, j + 1, g2);
-                        drawElement(2 * i, j + i % 2, g2);
-                    }
-                } else {
-                    //System.out.println("NO TENGO => [ " + i + " , " + j + " ]");
+                    TileFactory.drawElement(2 * i + 2, j, boardElements[2 * i + 2][j], g2);
+                    TileFactory.drawElement(2 * i + 3, j + i % 2, boardElements[2 * i + 3][j+i%2], g2);
+                    TileFactory.drawElement(2 * i + 2, j + 1, boardElements[2 * i + 2][j+1], g2);
+                    TileFactory.drawElement(2 * i + 1, j + 1, boardElements[2 * i + 1][j+1], g2);
+                    TileFactory.drawElement(2 * i, j + i % 2, boardElements[2 * i][j+i%2], g2);
+                     */
                 }
+            }
+        }
+        for (int i = 0; i < boardElements.length; i++) {
+            for (int j = 0; j < boardElements[i].length; j++) {
+               // if (board[i/2][j/3].getTerrain() != TerrainType.Invalid) {
+                    TileFactory.drawElement(i, j, boardElements[i][j], g2); //this fills an element with an image
+                    
+               // }
             }
         }
 
     }
 
-//    public void drawElements(){
-//        
-//    }
+/*
     public void drawElement(int i, int j, Graphics2D g2) {
 //if (boardElements[i][j].getElementType()!=ElementType.)
         g2.draw(boardElements[i][j]);
         try {
             System.out.println();
             BufferedImage img = ImageIO.read(new FileInputStream(boardElements[i][j].getImageName()));
-                    
+
             TexturePaint tex = new TexturePaint(img, boardElements[i][j].getBounds2D());
             g2.setPaint(tex);
             g2.fill(boardElements[i][j]);
@@ -302,16 +212,16 @@ public class GameView extends JPanel {
 
         } catch (IOException e) {
 
-            
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 //         System.out.println("hi");
-        g2.setColor(boardElements[i][j].getColor());
-        g2.fill(boardElements[i][j]);
-        g2.setColor(Color.orange);
+            g2.setColor(boardElements[i][j].getColor());
+            g2.fill(boardElements[i][j]);
+            g2.setColor(Color.orange);
         }
 
     }
 //C:\Users\Avi\Documents\NetBeansProjects\DominantSpecies1\src\dominantspecies\view\GameView.java
+
     public void drawTile(int i, int j, Graphics2D g2) {
         try {
 //            System.out.println("here: "+(board[i][j].getImageName()));z
@@ -324,31 +234,12 @@ public class GameView extends JPanel {
 
         } catch (IOException e) {
 
-        } catch (IllegalArgumentException e){
-             g2.setColor(board[i][j].getColor());
-        g2.fill(board[i][j]);
-        g2.setColor(Color.orange);
+        } catch (IllegalArgumentException e) {
+            g2.setColor(board[i][j].getColor());
+            g2.fill(board[i][j]);
+            g2.setColor(Color.orange);
         }
 
     }
-
-    public boolean checkHexExist(int x, int y) {
-        if ((x == 0) && (y == 0)) {
-            return false;
-        } else if ((x == 6) && (y == 0)) {
-            return false;
-        } else if ((x == 0) && (y == 5)) {
-            return false;
-        } else if ((x == 1) && (y == 5)) {
-            return false;
-        } else if ((x == 3) && (y == 5)) {
-            return false;
-        } else if ((x == 5) && (y == 5)) {
-            return false;
-        } else if ((x == 6) && (y == 5)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+*/
 }
