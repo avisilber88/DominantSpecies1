@@ -7,6 +7,7 @@
 package dominantspecies;
 
 import dominantspecies.model.Game;
+import dominantspecies.model.Player;
 import dominantspecies.view.GameView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,15 +22,22 @@ public class MainController{// implements MouseListener{
     Game model;
     GameView view;
     
-    public MainController(Game model, GameView gameview){//, GameView view){
+    public MainController(Game model){//, GameView view){
         this.model = model;
-        this.view = view;
+        this.view = view;//new GameView(this);
         //view.addMouseListener(this);
         //settlers version seems to pass the client around and call methods from it
         //however this kind of goes against the MVC concept of separation
     }
     
-    //make methods that call to the model
-
+    //make methods that call to the model and get called by the view
+public void placeActionPawn(){}
+public void placeSpecies(){}
+public void pickTile(){}//used for wanderlust and scoring domination
+public void placeTile(){}// used for wanderlust and tundra
+public void pickElement(){}// for placing on board or to adapt to or specieate
+public void placeElement(){}// on board
+public void removeSpecies(){}//from tile, used for competition and other shit
+public void removeElement(){}//from board or animal
     
 }

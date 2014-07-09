@@ -27,13 +27,8 @@ public class DominantSpecies {
 //int SCRSIZE;
 private static GameView board;
 private static Game game;
-JPanel actionPlaceHolder, rightPlaceHolder, leftPlaceHolder;
+JPanel actionDisplay, PlayerPanelPlaceHolder;
 JFrame frame;
-String WinstonTested;
-String testing2;
-String testing3;
-String testing4;
-String testing5;
 /**
      * @param args the command line arguments
      */
@@ -55,20 +50,17 @@ String testing5;
 
     private void createAndShowGUI() {
         //board = new GameView(null, null);///this will be set up in the constructer so comment it out laters
-        actionPlaceHolder = new JPanel();
-        leftPlaceHolder = new JPanel();
-        rightPlaceHolder = new JPanel();
+        actionDisplay = new JPanel();
         //JFrame.setDefaultLookAndFeelDecorated(true);
         frame = new JFrame("Dominant Species");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.X_AXIS));//frame.getContentPane();
 //        board.setPreferredSize(null);
-        content.add(leftPlaceHolder);
         content.add(board);
 
-        content.add(actionPlaceHolder);
-        content.add(rightPlaceHolder);
+        content.add(actionDisplay);
+        //content.add(rightPlaceHolder);
 //        board.setMinimumSize(new Dimension((int) (StartSize * (25.0 / 40)), (int) ((StartSize * (25.0 / 40)))));
 //        board.setPreferredSize(new Dimension((int) (StartSize * (25.0 / 40)), (int) ((StartSize * (25.0 / 40)))));
 //        board.setMaximumSize(new Dimension((int) (StartSize * (25.0 / 40)), (int) ((StartSize * (25.0 / 40)))));
@@ -82,13 +74,13 @@ String testing5;
         
 //        board.setSize((int)(board.SCRSIZE/1.23), board.SCRSIZE);
 //       board.setBounds(0, 0, (int)(board.SCRSIZE/1.23), (int)board.SCRSIZE);
-        actionPlaceHolder.setBackground(Color.red);
+        actionDisplay.setBackground(Color.red);
         board.setBackground(Color.blue);
         //this.add(panel);  -- cannot be done in a static context
         //for hexes in the FLAT orientation, the height of a 10x10 grid is 1.1764 * the width. (from h / (s+t))
         frame.add(content);
         content.setBackground(Color.green);
-        frame.setTitle("place holder is " + actionPlaceHolder.getWidth());
+        frame.setTitle("place holder is " + actionDisplay.getWidth());
         frame.setSize((int) (StartSize * (36.0 / 22)), StartSize);
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
@@ -119,10 +111,10 @@ String testing5;
 
     public void resizePanels() {
         frame.setSize(frame.getWidth(), (int) (frame.getWidth() * (22.0 / 36)));
-        setSizes(leftPlaceHolder, 4.0, 22.0);
+        //setSizes(leftPlaceHolder, 4.0, 22.0);
         setSizes(board, 22.0, 22.0);
-        setSizes(actionPlaceHolder, 8.0, 22.0);
-        setSizes(rightPlaceHolder, 4.0, 22.0);
+        setSizes(actionDisplay, 8.0, 22.0);
+       // setSizes(rightPlaceHolder, 4.0, 22.0);
         //board.realignBoard(board.getHeight());
         board.repaint();
 
