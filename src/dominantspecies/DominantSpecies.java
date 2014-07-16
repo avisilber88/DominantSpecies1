@@ -36,7 +36,7 @@ JFrame frame;
 
     public static void main(String[] args) {
         // TODO code application logic here
-        new DominantSpecies();//comment this out
+        new DominantSpecies();
         //uncomment below
         
        // MainController controller = new MainController(model);//, view);
@@ -87,7 +87,8 @@ JFrame frame;
         frame.setVisible(true);
         frame.addComponentListener(new ComponentListener() {
             public void componentResized(ComponentEvent e) {
-                resizePanels();
+               //need to change size and call update() on board
+                   // resizePanels();
 
 //                frame.setTitle("frame height "+frame.getHeight()+"panel height " + board.getHeight());
             }

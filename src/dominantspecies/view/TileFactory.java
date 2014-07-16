@@ -8,7 +8,6 @@ package dominantspecies.view;
 import dominantspecies.hexgame;
 import dominantspecies.model.ElementTile;
 import dominantspecies.model.Tile;
-import static dominantspecies.view.GameView.BORDERS;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -34,26 +33,34 @@ public class TileFactory {
     private static int tE = 0;
     private static int rE = 0;
     private static int hE = 0;
-
-    public static void setTileSize(int height) {
-        h = height;			// h = basic dimension: height (distance between two adj centresr aka size)
+    static int HEXSIZE = 60;	//hex size in pixels
+    static int BORDERS = 15;
+    private final static double element_to_hex_ratio = .2 ; //is going to be divided by 5, multiply by .2 instead ... look at set element size
+    
+    private static void setTileSize(){//int height) {
+        h = HEXSIZE;			// h = basic dimension: height (distance between two adj centresr aka size)
         r = h / 2;			// r = radius of inscribed circle
         s = (int) (h / 1.73205);	// s = (h/2)/cos(30)= (h/2) / (sqrt(3)/2) = h / sqrt(3)
         t = (int) (r / 1.73205);	// t = (h/2) tan30 = (h/2) 1/sqrt(3) = h / (2 sqrt(3)) = r / sqrt(3)
     }
 
-    public static void setElementSize(int height) {
-        hE = height;
+    private static void setElementSize(){//int height) {
+        hE = (int)(HEXSIZE * element_to_hex_ratio);
         rE = hE / 2;//h / 2;
         sE = (int) (h / 1.73025);
         tE = sE;//(int) (r / 1.73025);
     }
 
+    public static void setSize(int hexsize){
+        HEXSIZE = hexsize;
+        setTileSize();
+        setElementSize();
+    }
     
-    public static Polygon hex(int x0, int y0) {
+    private static Polygon hex(int x0, int y0) {
 
-        int y = y0 + GameView.BORDERS;
-        int x = x0 + GameView.BORDERS; 
+        int y = y0 + BORDERS;
+        int x = x0 + BORDERS; 
         
         if (s == 0 || h == 0) {
             System.out.println("ERROR: size of hex has not been set");
@@ -68,10 +75,10 @@ public class TileFactory {
         return new Polygon(cx, cy, 6);
     }
 
-    public static Ellipse2D.Double circle(int x0, int y0, int index) {
+    private static Ellipse2D.Double circle(int x0, int y0, int index) {
 
-        int y = y0 + GameView.BORDERS;
-        int x = x0 + GameView.BORDERS; 
+        int y = y0 + BORDERS;
+        int x = x0 + BORDERS; 
         
         if (hE == 0) {
             System.out.println("ERROR: size of ellipse has not been set");

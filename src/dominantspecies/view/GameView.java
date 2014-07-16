@@ -39,49 +39,50 @@ public class GameView extends JPanel {
     final static Color COLOURONETXT = Color.BLUE;
     final static Color COLOURTWO = new Color(0, 0, 0, 200);
     final static Color COLOURTWOTXT = new Color(255, 100, 255);
-
-    private static int s = 0;	// length of one side
-    private static int t = 0;	// short side of 30o triangle outside of each hex
-    private static int r = 0;	// radius of inscribed circle (centre to middle of each side). r= h/2
-    private static int h = 0;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
-    private static int sE = 0;	// length of one side
-    private static int tE = 0;	// short side of 30o triangle outside of each hex
-    private static int rE = 0;	// radius of inscribed circle (centre to middle of each side). r= h/2
-    private static int hE = 0;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
+//
+//    private static int s = 0;	// length of one side
+//    private static int t = 0;	// short side of 30o triangle outside of each hex
+//    private static int r = 0;	// radius of inscribed circle (centre to middle of each side). r= h/2
+//    private static int h = 0;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
+//    private static int sE = 0;	// length of one side
+//    private static int tE = 0;	// short side of 30o triangle outside of each hex
+//    private static int rE = 0;	// radius of inscribed circle (centre to middle of each side). r= h/2
+//    private static int hE = 0;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
 
     // public static boolean XYVertex=false;
     //  final static Tile EMPTY = new Tile(Tile.TerrainType.Invalid);
 //  final static int BSIZE = 7; //board size.
-    final static int HEXSIZE = 60;	//hex size in pixels
-    final static int BORDERS = 15;
+//    final static int HEXSIZE = 60;	//hex size in pixels
+//    final static int BORDERS = 15;
    // final static int SCRSIZE = 525;//HEXSIZE * (BSIZE + 1) + BORDERS * 3; //screen size (vertical dimension).
-    Game game;
-    Tile[][] board;// = new TileView[BSIZE][BSIZE - 1];
-    ElementTile[][] boardElements;// = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
+    final Game game;
+    final Tile[][] board;// = new TileView[BSIZE][BSIZE - 1];
+    final ElementTile[][] boardElements;// = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
+    final MainController mainController;
 
-    public static void setTileSize(int height) {
-        h = height;			// h = basic dimension: height (distance between two adj centresr aka size)
-        r = h / 2;			// r = radius of inscribed circle
-        s = (int) (h / 1.73205);	// s = (h/2)/cos(30)= (h/2) / (sqrt(3)/2) = h / sqrt(3)
-        t = (int) (r / 1.73205);	// t = (h/2) tan30 = (h/2) 1/sqrt(3) = h / (2 sqrt(3)) = r / sqrt(3)
-    }
-
-    public static void setElementSize(int height) {
-        hE = height;
-        rE = hE / 2;//h / 2;
-        sE = (int) (h / 1.73025);
-        tE = sE;//(int) (r / 1.73025);
-    }
+//    public static void setTileSize(int height) {
+//        h = height;			// h = basic dimension: height (distance between two adj centresr aka size)
+//        r = h / 2;			// r = radius of inscribed circle
+//        s = (int) (h / 1.73205);	// s = (h/2)/cos(30)= (h/2) / (sqrt(3)/2) = h / sqrt(3)
+//        t = (int) (r / 1.73205);	// t = (h/2) tan30 = (h/2) 1/sqrt(3) = h / (2 sqrt(3)) = r / sqrt(3)
+//    }
+//
+//    public static void setElementSize(int height) {
+//        hE = height;
+//        rE = hE / 2;//h / 2;
+//        sE = (int) (h / 1.73025);
+//        tE = sE;//(int) (r / 1.73025);
+//    }
 
     public GameView(Game model, MainController controller) {
-        TileFactory.setTileSize(HEXSIZE);//TileSize(HEXSIZE);//this is simple way to change tile size
-        TileFactory.setElementSize(HEXSIZE / 5);
+        //set this in the tile factory itself
+       // TileFactory.setTileSize(TileFactory.HEXSIZE);
+       // TileFactory.setElementSize(TileFactory.HEXSIZE / 5);
 
         this.game = model;
         this.board = this.game.getBoard().getBoard();
         this.boardElements = this.game.getBoard().getBoardElements();
-
-        //set up board here
+        this.mainController = controller;
     }
 
     /*
@@ -158,6 +159,16 @@ public class GameView extends JPanel {
      }
      }
      }*/
+    
+//  coordinate system for reference
+//  this is top right (includes the tile that is "invalid"    
+//            (1,0)----(2,0)          (5,0)----(6,0)
+//            /           \           /
+//        (0,0)           (3,0)----(4,0)
+//            \           /           \
+//            (1,1)----(2,1)          (5,1)----(6,1)
+//            /           \           /
+//        (0,1)           (3,1)----(4,1)
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -166,7 +177,6 @@ public class GameView extends JPanel {
         super.paintComponent(g2);
         System.err.println("board.length = "+board.length+"\nboardelements.length = "+boardElements.length);
         //draw grid
-        int vertex;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                // System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
@@ -180,7 +190,6 @@ public class GameView extends JPanel {
             for (int j = 0; j < board[i].length; j++) {
                // System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
                 if (board[i][j].getTerrain() != TerrainType.Invalid) {
-                    //vertex=0;
                     TileFactory.drawElement(i, j, 5, boardElements[i][j], g2); //this fills an element with an image
                     TileFactory.drawElement(i, j, 0, boardElements[i+1][j], g2); //this fills an element with an image
                     TileFactory.drawElement(i, j, 1, boardElements[i+2][j], g2); //this fills an element with an image

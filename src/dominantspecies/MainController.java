@@ -20,11 +20,11 @@ import java.awt.event.MouseListener;
  */
 public class MainController{// implements MouseListener{
     Game model;
-    GameView view;
+    //GameView view;
     
     public MainController(Game model){//, GameView view){
         this.model = model;
-        this.view = view;//new GameView(this);
+        //this.view = view;//new GameView(this);
         //view.addMouseListener(this);
         //settlers version seems to pass the client around and call methods from it
         //however this kind of goes against the MVC concept of separation
