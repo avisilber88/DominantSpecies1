@@ -23,11 +23,14 @@ import java.awt.event.MouseListener;
  */
 public class MainController{
     Game model;
-    
+    GameView gameView = null;
     public MainController(Game model){
         this.model = model;
     }
-    
+    //I think this needs an instance of the view to call update on.
+    public void setView(GameView gameView){
+       this.gameView = gameView;
+    }
     //methods that get called from the view
     //figure out if it's valid then call the appropriate other method
     //NOTE:: ill probably give the model a state of which move it will accept

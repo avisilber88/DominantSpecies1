@@ -51,6 +51,7 @@ public class GameView extends JPanel {
         this.board = this.game.getBoard().getBoard();
         this.boardElements = this.game.getBoard().getBoardElements();
         this.mainController = controller;
+        controller.setView(this);
     }
    
 //  coordinate system for reference

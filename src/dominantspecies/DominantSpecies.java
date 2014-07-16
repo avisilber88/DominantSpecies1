@@ -25,6 +25,7 @@ import javax.swing.JPanel;
  */
 public class DominantSpecies {
 //int SCRSIZE;
+    private MainController mainController;
 private static GameView board;
 private static Game game;
 JPanel actionDisplay, PlayerPanelPlaceHolder;
@@ -44,7 +45,8 @@ JFrame frame;
 
     public DominantSpecies() {
         game = new Game(true);
-        board = new GameView(game, null);
+        mainController = new MainController(game);
+        board = new GameView(game, mainController);
         createAndShowGUI();
     }
 
