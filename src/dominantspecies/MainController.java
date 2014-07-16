@@ -6,8 +6,11 @@
 
 package dominantspecies;
 
+import dominantspecies.model.Actions.EyeballSpace;
+import dominantspecies.model.ElementTile;
 import dominantspecies.model.Game;
 import dominantspecies.model.Player;
+import dominantspecies.model.Tile;
 import dominantspecies.view.GameView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,19 +21,26 @@ import java.awt.event.MouseListener;
  *
  * @author Tom
  */
-public class MainController{// implements MouseListener{
+public class MainController{
     Game model;
-    //GameView view;
     
-    public MainController(Game model){//, GameView view){
+    public MainController(Game model){
         this.model = model;
-        //this.view = view;//new GameView(this);
-        //view.addMouseListener(this);
-        //settlers version seems to pass the client around and call methods from it
-        //however this kind of goes against the MVC concept of separation
     }
     
-    //make methods that call to the model and get called by the view
+    //methods that get called from the view
+    //figure out if it's valid then call the appropriate other method
+    //NOTE:: ill probably give the model a state of which move it will accept
+    //      avi if you want you can do it by making an enum for the state of the model.
+    //      The state is basically which method the model will want to recieve 
+    //      (look under this set of methods for "methods that call the model"
+    //NOTE::NOTE:: this is not the end all be all, there will be other methods
+    //              that will be needed
+    public void tileClicked(Tile tile){}    
+    public void elementClicked(ElementTile elementTile){}    
+    public void eyeballspaceClicked(EyeballSpace eyeballSpace){}
+    
+    //methods that will call the model
 public void placeActionPawn(){}
 public void placeSpecies(){}
 public void pickTile(){}//used for wanderlust and scoring domination

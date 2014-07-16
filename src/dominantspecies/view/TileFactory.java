@@ -24,18 +24,20 @@ import javax.imageio.ImageIO;
  * @author Tom
  */
 public class TileFactory {
-
-    private static int s = 0;	// length of one side
-    private static int t = 0;	// short side of 30o triangle outside of each hex
-    private static int r = 0;	// radius of inscribed circle (centre to middle of each side). r= h/2
-    private static int h = 0;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
-    private static int sE = 0;
-    private static int tE = 0;
-    private static int rE = 0;
-    private static int hE = 0;
     static int HEXSIZE = 60;	//hex size in pixels
     static int BORDERS = 15;
     private final static double element_to_hex_ratio = .2 ; //is going to be divided by 5, multiply by .2 instead ... look at set element size
+                                                               //its generally better to multiply then divide
+    private static int h = HEXSIZE;	// height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
+    private static int r = h / 2;	// radius of inscribed circle (centre to middle of each side). r= h/2                                                         
+    private static int s = (int) (h / 1.73205);	// length of one side
+    private static int t = (int) (r / 1.73205);	// short side of 30o triangle outside of each hex
+    private static int hE = (int)(HEXSIZE * element_to_hex_ratio);
+   // private static int sE = (int) (h / 1.73025);
+   // private static int tE = sE;
+    private static int rE = rE = hE / 2;
+    
+    
     
     private static void setTileSize(){//int height) {
         h = HEXSIZE;			// h = basic dimension: height (distance between two adj centresr aka size)
@@ -47,8 +49,8 @@ public class TileFactory {
     private static void setElementSize(){//int height) {
         hE = (int)(HEXSIZE * element_to_hex_ratio);
         rE = hE / 2;//h / 2;
-        sE = (int) (h / 1.73025);
-        tE = sE;//(int) (r / 1.73025);
+     //   sE = (int) (h / 1.73025);
+//        tE = sE;//(int) (r / 1.73025);
     }
 
     public static void setSize(int hexsize){
