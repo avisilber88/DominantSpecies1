@@ -22,11 +22,11 @@ public class Board {
     final Tile[][] board;
     final ElementTile[][] boardElements;   
 
-    public Board(boolean defaultSetup) {
+    public Board(boolean isDefaultSetup) {
         board = new Tile[BSIZE][BSIZE - 1];
         boardElements = new ElementTile[2 * (BSIZE + 1)][BSIZE];
         initBoard(); 
-        if(defaultSetup)
+        if(isDefaultSetup)
             defaultSettings();
     }
 
@@ -37,36 +37,12 @@ public class Board {
             for (int j = 0; j < board[i].length; j++) {        
                 board[i][j] = new Tile(TerrainType.None);
                 if(!hexExist(i, j))
-                    board[i][j].setTerrain(TerrainType.Invalid);               
-               /*
-                else{                    
-                    if (boardElements[2 * i + 1][j] == null) {
-                        boardElements[2 * i + 1][j] = new ElementTile(ElementType.None);
-                    }
-                    if (boardElements[2 * i + 2][j] == null) {
-                        boardElements[2 * i + 2][j] = new ElementTile(ElementType.None);
-                    }
-                    if (boardElements[2 * i + 3][j + i % 2] == null) {
-                        boardElements[2 * i + 3][j + i % 2] = new ElementTile(ElementType.None);
-                    }
-                    if (boardElements[2 * i + 2][j + 1] == null) {
-                        boardElements[2 * i + 2][j + 1] = new ElementTile(ElementType.None);
-                    }
-                    if (boardElements[2 * i + 1][j + 1] == null) {
-                        boardElements[2 * i + 1][j + 1] = new ElementTile(ElementType.None);
-                    }
-                    if (boardElements[2 * i][j + i % 2] == null) {
-                        boardElements[2 * i][j + i % 2] = new ElementTile(ElementType.None);
-                    }                   
-                } 
-                */
+                    board[i][j].setTerrain(TerrainType.Invalid);
             }
         } 
         for (int i = 0; i < boardElements.length; i++) {
             for (int j = 0; j < boardElements[i].length; j++) { 
                 boardElements[i][j] = new ElementTile(ElementType.None);
-               // if(!hexExist(i/2, j/3))
-               //     boardElements[i][j].setElementType(ElementType.Invalid);
             }
         }
         
@@ -79,7 +55,6 @@ public class Board {
         board[3][3].setTerrain(TerrainType.Mountain);
         board[2][3].setTerrain(TerrainType.Forest);
         board[2][2].setTerrain(TerrainType.Jungle);
-
         board[3][2].setTerrain(TerrainType.Tundra);
 /*
         //NEED TO RE FORMAT THE SET UP

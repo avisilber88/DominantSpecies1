@@ -8,7 +8,7 @@ package dominantspecies;
 
 import dominantspecies.model.Actions.EyeballSpace;
 import dominantspecies.model.ElementTile;
-import dominantspecies.model.Game;
+import dominantspecies.model.GameModel;
 import dominantspecies.model.Player;
 import dominantspecies.model.Tile;
 import dominantspecies.view.GameView;
@@ -22,9 +22,9 @@ import java.awt.event.MouseListener;
  * @author Tom
  */
 public class MainController{
-    Game model;
+    GameModel model;
     GameView gameView = null;
-    public MainController(Game model){
+    public MainController(GameModel model){
         this.model = model;
     }
     //I think this needs an instance of the view to call update on.

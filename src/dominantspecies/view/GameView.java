@@ -9,10 +9,11 @@ import dominantspecies.DominantSpecies;
 import dominantspecies.MainController;
 import dominantspecies.model.ElementTile;
 import dominantspecies.model.ElementType;
-import dominantspecies.model.Game;
+import dominantspecies.model.GameModel;
 import dominantspecies.model.TerrainType;
 import dominantspecies.model.Tile;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -40,22 +41,22 @@ public class GameView extends JPanel {
     final static Color COLOURTWO = new Color(0, 0, 0, 200);
     final static Color COLOURTWOTXT = new Color(255, 100, 255);
    
-    final Game game;
-    final Tile[][] board;// = new TileView[BSIZE][BSIZE - 1];
-    final ElementTile[][] boardElements;// = new ElementTileView[2 * (BSIZE + 1)][BSIZE];
+    final GameModel game;
+    final Tile[][] board;
+    final ElementTile[][] boardElements;
     final MainController mainController;
 
 
-    public GameView(Game model, MainController controller) {
+    public GameView(GameModel model, MainController controller) {
         this.game = model;
         this.board = this.game.getBoard().getBoard();
         this.boardElements = this.game.getBoard().getBoardElements();
         this.mainController = controller;
-        controller.setView(this);
+        controller.setView((GameView)this);
     }
    
 //  coordinate system for reference
-//  this is top right (includes the tile that is "invalid"    
+//  this is top right (includes the tile that is "invalid")    
 //            (1,0)----(2,0)          (5,0)----(6,0)
 //            /           \           /
 //        (0,0)           (3,0)----(4,0)
@@ -73,29 +74,41 @@ public class GameView extends JPanel {
         //draw grid
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-               // System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
                 if (board[i][j].getTerrain() != TerrainType.Invalid) {
                     g2.setColor(COLOURONE);
-                    TileFactory.drawTile(i, j, board[i][j], g2); //this fills an element with an image                    
+                    TileFactory.drawTile(i, j, board[i][j], g2);                 
                 }
             }
         }
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-               // System.err.println("["+i+"]["+j+"] = " +  board[i][j].getTerrain());
                 if (board[i][j].getTerrain() != TerrainType.Invalid) {
-                    TileFactory.drawElement(i, j, 5, boardElements[i][j], g2); //this fills an element with an image
-                    TileFactory.drawElement(i, j, 0, boardElements[i+1][j], g2); //this fills an element with an image
-                    TileFactory.drawElement(i, j, 1, boardElements[i+2][j], g2); //this fills an element with an image
-                    TileFactory.drawElement(i, j, 2, boardElements[i+3][j], g2); //this fills an element with an image
-                    TileFactory.drawElement(i, j, 3, boardElements[i+2][j + 1], g2); //this fills an element with an image
-                    TileFactory.drawElement(i, j, 4, boardElements[i+1][j + 1], g2); //this fills an element with an image
+                    //the number in drawelement is the vertext of the hex,//figure might be off
+                    //  0   1
+                    //5        2
+                    //  4   3
+                    TileFactory.drawElement(i, j, 5, boardElements[i][j], g2); 
+                    TileFactory.drawElement(i, j, 0, boardElements[i+1][j], g2);
+                    TileFactory.drawElement(i, j, 1, boardElements[i+2][j], g2);
+                    TileFactory.drawElement(i, j, 2, boardElements[i+3][j], g2);
+                    TileFactory.drawElement(i, j, 3, boardElements[i+2][j + 1], g2);
+                    TileFactory.drawElement(i, j, 4, boardElements[i+1][j + 1], g2);
                     
                 }
             }
         }        
     }
 
+    //TODO:: need to make a fix size
+    //i feel like we need a standard size ratio for each component or something
+    public void resize(){
+        int dim = this.getSize().height;
+        System.out.println(dim);
+        TileFactory.setSize((int)(dim * .142)); //close enough to a 7th of the dim size
+                                                //7 tiles in a row
+    }
+    
+    
     //have the listener methods here
     //for example if the tile is clicked on then call the controllers tile method
     /*public void someTileGotPressed(){

@@ -14,6 +14,8 @@ import java.util.HashMap;
  */
 public class Player {
   
+   public static final int MAX_ACTIONS = 7;
+   public static final int MAX_GENE_POOL = 55;
    public static final int MAX_ADAPTAIONS = 6;
    private HashMap<ElementType, Integer> adaptations;
    //avi, adaptations.values() gives you the values in there, use it to check if they are 
@@ -34,12 +36,12 @@ public class Player {
        this.animal = animal;       
        
      // int numberOfPlayers = -1;//TODO find this
-      int modifier = (numberOfPlayers - 2);
-      actionPawns = 7 - modifier;
-      genePool = 55 - (modifier * 5);
+      int modifier = (numberOfPlayers - 2);//it just is 2
+      actionPawns = MAX_ACTIONS - modifier;
+      genePool = MAX_GENE_POOL - (modifier * 5);//not sure why 5, but rules work out
       
       //setup adaptaitions      
-       adaptations = new HashMap<ElementType, Integer>();
+       adaptations = new HashMap<>();
        setupAdaptations();
       
    }

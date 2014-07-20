@@ -13,14 +13,14 @@ import java.util.List;
  *
  * @author Tom
  */
-public class Game {
+public class GameModel {
 
     private Board board;
     private ActionDisplay actionDisplay;
     private ElementBag elementBag;
     private List<Player> players;
 
-    public Game(boolean defaultSetup) {
+    public GameModel(boolean defaultSetup) {
         players = new ArrayList<>();
         elementBag = new ElementBag();
         board = new Board(defaultSetup);

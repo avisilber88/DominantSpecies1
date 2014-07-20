@@ -6,7 +6,7 @@
 
 package dominantspecies.model.Actions;
 
-import dominantspecies.model.Game;
+import dominantspecies.model.GameModel;
 
 /**
  *
@@ -15,7 +15,7 @@ import dominantspecies.model.Game;
 public class PlanningAction extends UserAction {
     
     @Override
-    public void execute(Game game){
+    public void execute(GameModel game){
         //let player place action pawn on the actiondisplay
     }
 }
